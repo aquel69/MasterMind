@@ -3,10 +3,10 @@ package fr.alex.main;
 import java.util.ResourceBundle;
 
 public class RessourcesMaster {
-	private final int NB_DE_CHIFFRE_COMBINAISON;
-	private final int NB_DE_COUP_MAX;
-	private String nombreDeChiffreCombinaisonString;
-	private String nb_de_coup_max_string;
+	protected final int NB_DE_CHIFFRE_COMBINAISON;
+	protected final int NB_DE_COUP_MAX;
+	protected String nombreDeChiffreCombinaisonString;
+	protected String nb_de_coup_max_string;
 	
 	
 	

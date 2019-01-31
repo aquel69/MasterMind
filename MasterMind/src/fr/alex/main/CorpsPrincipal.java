@@ -9,47 +9,41 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CorpsPrincipal {
-	private static Logger logger = LogManager.getLogger(CorpsPrincipal.class.getName());
+	protected static Logger logger = LogManager.getLogger(CorpsPrincipal.class.getName());
+	
+	String reponse = " ", reponseModeDeveloppeur = " ",  clavier = "  ",resultat = " ";
+	char carac = ' ';
+	String choixModeDeJeu = " ";
+	String combinaison;
+
+	
+	//final int NB_DE_COUP_MAX = 7;
+	int nbDeCoupsJoues = 0;
+	int nombreModeDeJeu = 0;
+	int modeDeveloppeur = 0;
+	//int nombreDeChiffreCombinaison = 4;
+
+	boolean ordinateurGagne = false;
+	boolean utilisateurGagne = false;
+	
+	RessourcesMaster ressources = new RessourcesMaster();
+	Random random = new Random();
 	
 	public CorpsPrincipal() {
 		
 	}
 	
 	public void init() {
-		
-		
-		
-			String reponse = " ", reponseModeDeveloppeur = " ",  clavier = "  ",resultat = " ";
-			char carac = ' ';
-			String choixModeDeJeu = " ";
-
-			
-			//final int NB_DE_COUP_MAX = 7;
-			int nbDeCoupsJoues = 0;
-			int nombreModeDeJeu = 0;
-			int modeDeveloppeur = 0;
-			//int nombreDeChiffreCombinaison = 4;
-
-			boolean ordinateurGagne = false;
-			boolean utilisateurGagne = false;
-			
-			RessourcesMaster ressources = new RessourcesMaster();
-			Random random = new Random();
-			
+					
 			/** déclaration des classes
 			 */
-
-						
+				
 			do {
 				presentation();
 				do {
-					
-						choixModeDeJeu = verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
-					
-
+						choixModeDeJeu = Joueurs.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
 						nombreModeDeJeu = Integer.parseInt(choixModeDeJeu);
 				}while(nombreModeDeJeu < 0 || nombreModeDeJeu > 5 || nombreModeDeJeu == 0);
-
 				
 				//switch contenant les Différents jeux
 				switch(nombreModeDeJeu) {
@@ -60,30 +54,33 @@ public class CorpsPrincipal {
 				 */
 				do {
 					
+					combinaison = Combinaison.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
+					System.out.println("combinaison : " + this.combinaison);	
 
 					nbDeCoupsJoues = 0;
 					/** Boucle permettant de comparer les valeurs des deux tableaux
 					 */
-					//do {
+					do {
 						/**Boucle permettant de s'assurer du nombre de caractère saisie					
 						 */
 						do {
 
-							reponse = verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
-
+							reponse = Utilisateur.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
 
 						}while (reponse.length() != ressources.getNB_DE_CHIFFRE_COMBINAISON());
-
 						
-
+						resultat = Utilisateur.comparaisonTableau(combinaison, reponse);
+						Joueurs.affichageDuResultatEtDesIndices(reponse, resultat);
+					
+						
 						//ajout à chaque tour d'un coup joué
-						//nbDeCoupsJoues++;
+						nbDeCoupsJoues++;
 
-					//}while();
+					}while(!combinaison.equals(reponse) && nbDeCoupsJoues < ressources.getNB_DE_COUP_MAX());
 
-					/**if(nbDeCoupsJoues<ressources.getNB_DE_COUP_MAX())
-						resultatFinalGagnant(nbrePropose, nbDeCoupsJoues);
-					else resultatFinalPerdant(nbreRecherche, nbDeCoupsJoues);*/
+					if(nbDeCoupsJoues<ressources.getNB_DE_COUP_MAX())
+						resultatFinalGagnant(combinaison, nbDeCoupsJoues);
+					else resultatFinalPerdant(combinaison, nbDeCoupsJoues);
 
 						/** boucle pour relancer le programme, on entre un 'O' pour recommence et un 'N' pour quitter le programme
 						 * 	demande d'entrer 'O' ou 'N' dans le Scanner
@@ -98,7 +95,6 @@ public class CorpsPrincipal {
 							carac = clavier.charAt(0);
 
 					}while(carac != 'O' && carac != 'N' && carac != 'Q');
-
 
 				}while(carac == 'O');
 				if (carac == 'N')
@@ -150,7 +146,7 @@ public static void presentation(){
  * @param random1
  * @return Le nombre mystère générer au hasard par l'ordinateur
  */
-public static int[] nombreMystere(Random random1, int pNbCombinaison) {
+/**public static int[] nombreMystere(Random random1, int pNbCombinaison) {
 	int nbProp[] = new int[pNbCombinaison];
 	try {
 		for (int i = 0; i < nbProp.length; i++) {
@@ -164,7 +160,7 @@ public static int[] nombreMystere(Random random1, int pNbCombinaison) {
 	}catch(Exception e)
 	{logger.error("erreur sur le nombre mystere", e);}
 	return nbProp;
-}	
+}	*/
 
 
 /**
@@ -173,7 +169,7 @@ public static int[] nombreMystere(Random random1, int pNbCombinaison) {
  * @param p2Reponse
  * @return le nombre entré par l'utilisateur et vérifie si les caractères entrés sont des chiffres ou des lettres ou si il n'y a rien
  */
-public static String verificationSaisieUtilisateurMultiple(String p1Demande,String p2Reponse, String p3Reponse) {
+/**public static String verificationSaisieUtilisateurMultiple(String p1Demande,String p2Reponse, String p3Reponse) {
 	String reponse;
 	boolean verite, verite2;
 	do{
@@ -190,14 +186,14 @@ public static String verificationSaisieUtilisateurMultiple(String p1Demande,Stri
 	}while( verite2 == true || verite == true );
 	return reponse;
 
-}
+}*/
 
 /**
  * 
  * @param pReponse2
  * @return un boolen True si une lettre est rentrée par l'utilisateur
  */
-public static boolean verifierSiLettreOuNombre(String pReponse2) {
+/**public static boolean verifierSiLettreOuNombre(String pReponse2) {
 	int test = 0;
 	boolean verification = false;
 	for(int i = 0; i < pReponse2.length(); i++) {
@@ -207,7 +203,7 @@ public static boolean verifierSiLettreOuNombre(String pReponse2) {
 						
 	}
 	return verification;
-}
+}*/
 
 
 /**
@@ -254,7 +250,7 @@ public static ArrayList<Integer> conversionChaineEnEntierEtPlacerDansUneList(Str
  * indique le signe sur chaque chiffre correspondant à la différence entre les deux tableaux et indiquant "+","-" ou "=" suivant le résultat
  * @return 
  */
-public static String comparaisonTableau(int pNbrePropose[], int pNbreRecherche[]) {
+/**public static String comparaisonTableau(int pNbrePropose[], int pNbreRecherche[]) {
 	String signe = " ";
 	String resultat = " ";
 
@@ -272,7 +268,7 @@ public static String comparaisonTableau(int pNbrePropose[], int pNbreRecherche[]
 	}
 
 	return resultat;
-}
+}*/
 
 
 /**
@@ -281,7 +277,7 @@ public static String comparaisonTableau(int pNbrePropose[], int pNbreRecherche[]
  * @param pListeDeLaCombinaisonOrdinateur
  * @return comparaison des deux listes et retourne un caractere indiquant le + ou - ou = suivant le resultat
  */
-public static String comparaisonTableau(ArrayList<Integer> pListeDesChiffresUtilisateurs, ArrayList<Integer> pListeDeLaCombinaisonOrdinateur) {
+/**public static String comparaisonTableau(ArrayList<Integer> pListeDesChiffresUtilisateurs, ArrayList<Integer> pListeDeLaCombinaisonOrdinateur) {
 	String signe = " ";
 	String resultat = " ";
 
@@ -299,7 +295,7 @@ public static String comparaisonTableau(ArrayList<Integer> pListeDesChiffresUtil
 	}
 
 	return resultat;
-}
+}*/
 
 /**
  * 
@@ -451,9 +447,9 @@ public static ArrayList<Integer> ajoutDeLaListeDesChiffresProposesDansLaListeDes
  * @param pReponse
  * @param pResultat
  */
-public static void affichageDuResultatEtDesIndices(String pReponse, String pResultat) {
+/**public static void affichageDuResultatEtDesIndices(String pReponse, String pResultat) {
 	JOptionPane.showMessageDialog(null, pReponse + "\n" + pResultat);
-}
+}*/
 
 
 
@@ -507,11 +503,11 @@ public static boolean SavoirSiLOrdinateurAGagne(ArrayList<Integer> pListeDesChif
  * @param pNbDeCoups
  * affichage du résultat trouvé et du nombre de coup qu'il a fallu à l'utilisateur pour y arriver
  */
-public static void resultatFinalGagnant(int pNbrePropose [], int pNbDeCoups) {
+public static void resultatFinalGagnant(String pResultat, int pNbDeCoups) {
 	JOptionPane.showMessageDialog(null, 
 	"-----------------------------------------\n" +
 	"Vous avez trouvé la réponse est bien " +
-	renvoiLeResultatEnString(pNbrePropose)+
+	pResultat +
 	"\nVous l'avez réussi en " + pNbDeCoups + " coups\n" +
 	"-----------------------------------------");
 }
@@ -538,12 +534,12 @@ public static void resultatFinalGagnant(ArrayList<Integer> pNbrePropose, int pNb
  * @param pNbrePropose
  * @param pNbCoupJoue
  */
-	public static void resultatFinalPerdant(int pNbrePropose [], int pNbCoupJoue) {
+	public static void resultatFinalPerdant(String pResultat, int pNbCoupJoue) {
 	JOptionPane.showMessageDialog(null, 
 	"---------------------------------------------------------------\n" +
 	"--Vous n'avez pas trouvé la bonne réponse!--\n" +
 	"Dans le nombre de coup imparti qui était de " + pNbCoupJoue +
-	"\n----------------La solution était : " + renvoiLeResultatEnString(pNbrePropose) + "----------------" +
+	"\n----------------La solution était : " + pResultat + "----------------" +
 	"\n---------------------------------------------------------------");
 }
 
