@@ -14,7 +14,7 @@ public class CorpsPrincipal {
 	String reponse = " ", reponseModeDeveloppeur = " ",  clavier = "  ",resultat = " ";
 	char carac = ' ';
 	String choixModeDeJeu = " ";
-	String combinaison;
+	
 
 	
 	//final int NB_DE_COUP_MAX = 7;
@@ -28,6 +28,7 @@ public class CorpsPrincipal {
 	
 	RessourcesMaster ressources = new RessourcesMaster();
 	Random random = new Random();
+	Combinaison combinaisonMystere = new Combinaison();
 	
 	public CorpsPrincipal() {
 		
@@ -54,7 +55,7 @@ public class CorpsPrincipal {
 				 */
 				do {
 					
-					combinaison = Combinaison.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
+					Combinaison.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
 					System.out.println("combinaison : " + this.combinaison);	
 
 					nbDeCoupsJoues = 0;
