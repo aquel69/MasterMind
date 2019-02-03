@@ -55,8 +55,8 @@ public class CorpsPrincipal {
 				 */
 				do {
 					
-					Combinaison.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
-					System.out.println("combinaison : " + this.combinaison);	
+					combinaisonMystere.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
+					System.out.println("combinaison : " + combinaisonMystere.getCombinaison());	
 
 					nbDeCoupsJoues = 0;
 					/** Boucle permettant de comparer les valeurs des deux tableaux
@@ -70,18 +70,18 @@ public class CorpsPrincipal {
 
 						}while (reponse.length() != ressources.getNB_DE_CHIFFRE_COMBINAISON());
 						
-						resultat = Utilisateur.comparaisonTableau(combinaison, reponse);
+						resultat = Utilisateur.comparaisonTableau(combinaisonMystere.getCombinaison(), reponse);
 						Joueurs.affichageDuResultatEtDesIndices(reponse, resultat);
 					
 						
 						//ajout à chaque tour d'un coup joué
 						nbDeCoupsJoues++;
 
-					}while(!combinaison.equals(reponse) && nbDeCoupsJoues < ressources.getNB_DE_COUP_MAX());
+					}while(!combinaisonMystere.getCombinaison().equals(reponse) && nbDeCoupsJoues < ressources.getNB_DE_COUP_MAX());
 
 					if(nbDeCoupsJoues<ressources.getNB_DE_COUP_MAX())
-						resultatFinalGagnant(combinaison, nbDeCoupsJoues);
-					else resultatFinalPerdant(combinaison, nbDeCoupsJoues);
+						resultatFinalGagnant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
+					else resultatFinalPerdant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 
 						/** boucle pour relancer le programme, on entre un 'O' pour recommence et un 'N' pour quitter le programme
 						 * 	demande d'entrer 'O' ou 'N' dans le Scanner
