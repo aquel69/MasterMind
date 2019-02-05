@@ -8,6 +8,7 @@ public class Combinaison {
 	
 	//private static Logger loggerComb= LogManager.getLogger(Combinaison.class.getName());
 	private String combinaison = "";
+	RessourcesMaster ressources = new RessourcesMaster();
 	
 	public Combinaison() {
 		
@@ -18,7 +19,7 @@ public class Combinaison {
 		char chiffre = ' ';
 		//try {
 				for (int i = 0; i < pNB_COMBINAISON; i++) {
-				int pNb = random1.nextInt(10);
+				int pNb = random1.nextInt(ressources.getNB_DE_COULEUR() - 1 + 1) + 1;
 				chiffre = Integer.toString(pNb).charAt(0);	
 				System.out.println(chiffre);
 				this.combinaison = this.combinaison + chiffre;
@@ -26,7 +27,7 @@ public class Combinaison {
 			
 		//}catch(Exception e)
 		//{Logger.error("erreur sur le nombre mystere", e);}
-		setCombinaison(this.combinaison);
+		
 	}
 
 	public String getCombinaison() {

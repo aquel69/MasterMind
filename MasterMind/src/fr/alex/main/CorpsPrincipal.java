@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
+
 public class CorpsPrincipal {
 	protected static Logger logger = LogManager.getLogger(CorpsPrincipal.class.getName());
 	
@@ -29,36 +31,41 @@ public class CorpsPrincipal {
 	RessourcesMaster ressources = new RessourcesMaster();
 	Random random = new Random();
 	Combinaison combinaisonMystere = new Combinaison();
+	Joueurs joueur = new Joueurs();
+	Utilisateur utilisateur = new Utilisateur();
 	
 	public CorpsPrincipal() {
 		
 	}
 	
 	public void init() {
-					
+				
 			/** déclaration des classes
 			 */
 				
 			do {
 				presentation();
 				do {
-						choixModeDeJeu = Joueurs.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
-						nombreModeDeJeu = Integer.parseInt(choixModeDeJeu);
-				}while(nombreModeDeJeu < 0 || nombreModeDeJeu > 5 || nombreModeDeJeu == 0);
+				
+					joueur.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
+					
+				}while(joueur.getChoixDuModeJeux() < 0 || joueur.getChoixDuModeJeux() > 5 || joueur.getChoixDuModeJeux() == 0);
 				
 				//switch contenant les Différents jeux
-				switch(nombreModeDeJeu) {
+				switch(joueur.getChoixDuModeJeux()) {
 
 				//mode challenger
 				case 1 :
 				/** Boucle permettant de recommencer une partie
 				 */
 				do {
-					
-					combinaisonMystere.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
-					System.out.println("combinaison : " + combinaisonMystere.getCombinaison());	
-
+					//reinitialisation du nombre mystère et du nb de coup joué pour une nouvelle partie
+					combinaisonMystere.setCombinaison("");
 					nbDeCoupsJoues = 0;
+					//initialisation de la combinaison mystère
+					combinaisonMystere.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
+					
+					
 					/** Boucle permettant de comparer les valeurs des deux tableaux
 					 */
 					do {
@@ -66,20 +73,20 @@ public class CorpsPrincipal {
 						 */
 						do {
 
-							reponse = Utilisateur.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
-
-						}while (reponse.length() != ressources.getNB_DE_CHIFFRE_COMBINAISON());
+							//saisie d'une proposition par l'utilisateur
+							joueur.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres compris entre  1 et " + ressources.getNB_DE_COULEUR(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + ressources.getNB_DE_COULEUR());
 						
-						resultat = Utilisateur.comparaisonTableau(combinaisonMystere.getCombinaison(), reponse);
-						Joueurs.affichageDuResultatEtDesIndices(reponse, resultat);
-					
+						}while (joueur.getReponse().length() != ressources.getNB_DE_CHIFFRE_COMBINAISON() );
+						
+						utilisateur.comparaisonTableau(combinaisonMystere.getCombinaison(), joueur.getReponse(), ressources.getNB_DE_CHIFFRE_COMBINAISON());
+						utilisateur.affichageDuResultatEtDesIndices(joueur.getReponse(), utilisateur.getBienPlace(), utilisateur.getMalPlace(), utilisateur.getInconnuDansLaCombinaison());
 						
 						//ajout à chaque tour d'un coup joué
 						nbDeCoupsJoues++;
 
-					}while(!combinaisonMystere.getCombinaison().equals(reponse) && nbDeCoupsJoues < ressources.getNB_DE_COUP_MAX());
+					}while(!combinaisonMystere.getCombinaison().equals(joueur.getReponse()) && nbDeCoupsJoues < ressources.getNB_DE_COUPS_MAX());
 
-					if(nbDeCoupsJoues<ressources.getNB_DE_COUP_MAX())
+					if(nbDeCoupsJoues<ressources.getNB_DE_COUPS_MAX())
 						resultatFinalGagnant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 					else resultatFinalPerdant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 
@@ -132,7 +139,7 @@ public class CorpsPrincipal {
 public static void presentation(){
 	JOptionPane.showMessageDialog(null, 
 	"---------------------------------------------------\n" +
-	"---------- Jeu de Recherche +/-----------\n" +
+	"---------- Jeu Master Mind ----------\n" +
 	"---------------------------------------------------\n" +
 	"1 - Mode Challenger\n" + 
 	"2 - Mode Defenseur\n" +
