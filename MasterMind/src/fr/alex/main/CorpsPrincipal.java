@@ -31,8 +31,9 @@ public class CorpsPrincipal {
 	RessourcesMaster ressources = new RessourcesMaster();
 	Random random = new Random();
 	Combinaison combinaisonMystere = new Combinaison();
-	Joueurs joueur = new Joueurs();
+	Joueurs joueurs = new Joueurs();
 	Utilisateur utilisateur = new Utilisateur();
+	VerificationEtFonctionnement fonctionnement = new VerificationEtFonctionnement();
 	
 	public CorpsPrincipal() {
 		
@@ -47,12 +48,12 @@ public class CorpsPrincipal {
 				presentation();
 				do {
 				
-					joueur.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
+					joueurs.setSaisie(fonctionnement.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre"));
 					
-				}while(joueur.getChoixDuModeJeux() < 0 || joueur.getChoixDuModeJeux() > 5 || joueur.getChoixDuModeJeux() == 0);
+				}while(fonctionnement.getChoixDuModeJeux() < 0 || fonctionnement.getChoixDuModeJeux() > 5 || fonctionnement.getChoixDuModeJeux() == 0);
 				
 				//switch contenant les Différents jeux
-				switch(joueur.getChoixDuModeJeux()) {
+				switch(fonctionnement.getChoixDuModeJeux()) {
 
 				//mode challenger
 				case 1 :
@@ -74,17 +75,16 @@ public class CorpsPrincipal {
 						do {
 
 							//saisie d'une proposition par l'utilisateur
-							joueur.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres compris entre  1 et " + ressources.getNB_DE_COULEUR(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + ressources.getNB_DE_COULEUR());
+							joueurs.setSaisie(fonctionnement.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres compris entre  1 et " + ressources.getNB_DE_COULEUR(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + ressources.getNB_DE_COULEUR()));
 						
-						}while (joueur.getReponse().length() != ressources.getNB_DE_CHIFFRE_COMBINAISON() );
+						}while (joueurs.getSaisie().length() != ressources.getNB_DE_CHIFFRE_COMBINAISON());
 						
-						utilisateur.comparaisonTableau(combinaisonMystere.getCombinaison(), joueur.getReponse(), ressources.getNB_DE_CHIFFRE_COMBINAISON());
-						utilisateur.affichageDuResultatEtDesIndices(joueur.getReponse(), utilisateur.getBienPlace(), utilisateur.getMalPlace(), utilisateur.getInconnuDansLaCombinaison());
-						
+						combinaisonMystere.comparaisonTableau(combinaisonMystere.getCombinaison(), joueurs.getSaisie());
+						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositions());
 						//ajout à chaque tour d'un coup joué
 						nbDeCoupsJoues++;
 
-					}while(!combinaisonMystere.getCombinaison().equals(joueur.getReponse()) && nbDeCoupsJoues < ressources.getNB_DE_COUPS_MAX());
+					}while(!combinaisonMystere.getCombinaison().equals(joueurs.getSaisie()) && nbDeCoupsJoues < ressources.getNB_DE_COUPS_MAX());
 
 					if(nbDeCoupsJoues<ressources.getNB_DE_COUPS_MAX())
 						resultatFinalGagnant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);

@@ -17,8 +17,6 @@ public class RessourcesMaster {
 	private boolean verite2;
 	
 	public RessourcesMaster(){
-		
-		
 		ResourceBundle bundle = ResourceBundle.getBundle("config");
 		nombreDeChiffreCombinaisonString = bundle.getString("masterMind.nbDeChiffreCombinaison");
 		nombreDeChiffreCombinaisonString = verificationSaisieUtilisateurMultiple(nombreDeChiffreCombinaisonString, "le parametre nb de Chiffre étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
@@ -31,8 +29,6 @@ public class RessourcesMaster {
 		nb_de_couleur_string = bundle.getString("masterMind.nbDeCouleur");
 		nb_de_couleur_string = verificationSaisieUtilisateurMultiple(nb_de_couleur_string, "le parametre nb de couleur étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
 		NB_DE_COULEUR = Integer.parseInt(nb_de_couleur_string);
-		
-		
 	}
 	
 	
