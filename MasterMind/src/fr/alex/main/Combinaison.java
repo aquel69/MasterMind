@@ -14,12 +14,8 @@ public class Combinaison {
 	private String recapitulatifDeLaPropositionJoueur;
 	private int bienPlace = 0;
 	private int malPlace = 0;
-	private int inconnuDansLaCombinaison = 0;
-	
-	RessourcesMaster ressources = new RessourcesMaster();
-	
-	
-	private boolean [] chiffreCombinaisonEnPlace = new boolean[ressources.getNB_DE_CHIFFRE_COMBINAISON()];
+		
+	private boolean [] chiffreCombinaisonEnPlace = new boolean[RessourcesMaster.getNbDeChiffreCombinaison()];
 	private ArrayList <String> recapitulatifDesPrecedentesPropositions = new ArrayList<String>();
 		
 	
@@ -29,12 +25,12 @@ public class Combinaison {
 		
 	}
 	
-	public void nombreMystere(Random randomChiffreMystere, int pNB_COMBINAISON) {
+	public void generationDuNombreMystere(Random randomChiffreMystere, int pNB_COMBINAISON) {
 		
 		char chiffre = ' ';
 		//try {
 				for (int i = 0; i < pNB_COMBINAISON; i++) {
-				int pNb = randomChiffreMystere.nextInt(ressources.getNB_DE_COULEUR() - 1 + 1) + 1;
+				int pNb = randomChiffreMystere.nextInt(RessourcesMaster.getNbDeCouleur() - 1 + 1) + 1;
 				chiffre = Integer.toString(pNb).charAt(0);	
 				System.out.println(chiffre);
 				this.combinaison = this.combinaison + chiffre;
@@ -48,7 +44,7 @@ public class Combinaison {
 	public void comparaisonTableau(String pCombinaison, String pReponse) {
 		this.bienPlace = 0;
 		this.malPlace = 0;
-		this.inconnuDansLaCombinaison = 0;
+		
 		char [] tableauReponse = pReponse.toCharArray();
 		char [] tableauCombinaison = pCombinaison.toCharArray();
 		
@@ -95,25 +91,6 @@ public class Combinaison {
 	}
 	
 	
-	public int getBienPlace() {
-		return bienPlace;
-	}
-	public void setBienPlace(int bienPlace) {
-		this.bienPlace = bienPlace;
-	}
-	public int getMalPlace() {
-		return malPlace;
-	}
-	public void setMalPlace(int malPlace) {
-		this.malPlace = malPlace;
-	}
-	public int getInconnuDansLaCombinaison() {
-		return inconnuDansLaCombinaison;
-	}
-	public void setInconnuDansLaCombinaison(int inconnuDansLaCombinaison) {
-		this.inconnuDansLaCombinaison = inconnuDansLaCombinaison;
-	}
-
 	public String getCombinaison() {
 		return combinaison;
 	}

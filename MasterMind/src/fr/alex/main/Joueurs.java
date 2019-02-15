@@ -3,6 +3,7 @@ package fr.alex.main;
 public class  Joueurs {
 	private String saisie;
 	
+	
 	public Joueurs() {
 		
 	}
@@ -14,6 +15,8 @@ public class  Joueurs {
 	public void setSaisie(String saisie) {
 		this.saisie = saisie;
 	}
+
+	
 
 	
 	

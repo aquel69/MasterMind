@@ -48,7 +48,7 @@ public class CorpsPrincipal {
 				presentation();
 				do {
 				
-					joueurs.setSaisie(fonctionnement.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre"));
+					fonctionnement.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
 					
 				}while(fonctionnement.getChoixDuModeJeux() < 0 || fonctionnement.getChoixDuModeJeux() > 5 || fonctionnement.getChoixDuModeJeux() == 0);
 				
@@ -64,7 +64,7 @@ public class CorpsPrincipal {
 					combinaisonMystere.setCombinaison("");
 					nbDeCoupsJoues = 0;
 					//initialisation de la combinaison mystère
-					combinaisonMystere.nombreMystere(random , ressources.getNB_DE_CHIFFRE_COMBINAISON());
+					combinaisonMystere.generationDuNombreMystere(random , RessourcesMaster.getNbDeChiffreCombinaison());
 					
 					
 					/** Boucle permettant de comparer les valeurs des deux tableaux
@@ -75,18 +75,18 @@ public class CorpsPrincipal {
 						do {
 
 							//saisie d'une proposition par l'utilisateur
-							joueurs.setSaisie(fonctionnement.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ ressources.getNB_DE_CHIFFRE_COMBINAISON() +  " chiffres compris entre  1 et " + ressources.getNB_DE_COULEUR(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + ressources.getNB_DE_COULEUR()));
+							fonctionnement.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ RessourcesMaster.getNbDeChiffreCombinaison() +  " chiffres compris entre  1 et " + RessourcesMaster.getNbDeCouleur(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + RessourcesMaster.getNbDeCouleur(),"veuillez rentrer le bon nombre de chiffre demandé, a savoir " + RessourcesMaster.getNbDeChiffreCombinaison());
 						
-						}while (joueurs.getSaisie().length() != ressources.getNB_DE_CHIFFRE_COMBINAISON());
+						}while (fonctionnement.getVerificationSaisie().length() != RessourcesMaster.getNbDeChiffreCombinaison());
 						
-						combinaisonMystere.comparaisonTableau(combinaisonMystere.getCombinaison(), joueurs.getSaisie());
+						combinaisonMystere.comparaisonTableau(combinaisonMystere.getCombinaison(), fonctionnement.getVerificationSaisie());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositions());
 						//ajout à chaque tour d'un coup joué
 						nbDeCoupsJoues++;
 
-					}while(!combinaisonMystere.getCombinaison().equals(joueurs.getSaisie()) && nbDeCoupsJoues < ressources.getNB_DE_COUPS_MAX());
+					}while(!combinaisonMystere.getCombinaison().equals(fonctionnement.getVerificationSaisie()) && nbDeCoupsJoues < RessourcesMaster.getNbDeCoupMax());
 
-					if(nbDeCoupsJoues<ressources.getNB_DE_COUPS_MAX())
+					if(nbDeCoupsJoues<RessourcesMaster.getNbDeCoupMax())
 						resultatFinalGagnant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 					else resultatFinalPerdant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 
@@ -149,70 +149,6 @@ public static void presentation(){
 	"---------------------------------------------------");
 }
 
-/**
- * 	
- * @param random1
- * @return Le nombre mystère générer au hasard par l'ordinateur
- */
-/**public static int[] nombreMystere(Random random1, int pNbCombinaison) {
-	int nbProp[] = new int[pNbCombinaison];
-	try {
-		for (int i = 0; i < nbProp.length; i++) {
-			int pNb = random1.nextInt(10);
-
-			nbProp[i] = pNb;
-			System.out.println("nombre aleatoire " + pNb);
-		}
-
-
-	}catch(Exception e)
-	{logger.error("erreur sur le nombre mystere", e);}
-	return nbProp;
-}	*/
-
-
-/**
- * 
- * @param p1Demande
- * @param p2Reponse
- * @return le nombre entré par l'utilisateur et vérifie si les caractères entrés sont des chiffres ou des lettres ou si il n'y a rien
- */
-/**public static String verificationSaisieUtilisateurMultiple(String p1Demande,String p2Reponse, String p3Reponse) {
-	String reponse;
-	boolean verite, verite2;
-	do{
-		reponse = JOptionPane.showInputDialog(p1Demande);
-		//verifie si lettre ou chiffre
-		verite = verifierSiLettreOuNombre(reponse);
-		//verifie si il y a rien de rentré
-		verite2 = reponse.isEmpty();
-		
-		if (verite) 
-			JOptionPane.showMessageDialog(null, p2Reponse);
-		else if (verite2)
-			JOptionPane.showMessageDialog(null, p3Reponse);
-	}while( verite2 == true || verite == true );
-	return reponse;
-
-}*/
-
-/**
- * 
- * @param pReponse2
- * @return un boolen True si une lettre est rentrée par l'utilisateur
- */
-/**public static boolean verifierSiLettreOuNombre(String pReponse2) {
-	int test = 0;
-	boolean verification = false;
-	for(int i = 0; i < pReponse2.length(); i++) {
-		test = (int) pReponse2.charAt(i);
-		if (test < 48 || test > 57)
-			verification = true;
-						
-	}
-	return verification;
-}*/
-
 
 /**
  * 
@@ -249,61 +185,6 @@ public static ArrayList<Integer> conversionChaineEnEntierEtPlacerDansUneList(Str
 	return nbreProp;
 }
 
-
-/**
- * 
- * @param pNbrePropose
- * @param pNbreRecherche
- * @param pReponse
- * indique le signe sur chaque chiffre correspondant à la différence entre les deux tableaux et indiquant "+","-" ou "=" suivant le résultat
- * @return 
- */
-/**public static String comparaisonTableau(int pNbrePropose[], int pNbreRecherche[]) {
-	String signe = " ";
-	String resultat = " ";
-
-	for (int i = 0; i < pNbrePropose.length; i++) {
-
-		if (pNbrePropose[i] < pNbreRecherche[i]) {
-			signe = "+";
-		}else if (pNbrePropose[i] > pNbreRecherche[i]){
-			signe = "-";
-		}else {
-			signe = "=";
-		}
-			resultat = resultat + signe;
-
-	}
-
-	return resultat;
-}*/
-
-
-/**
- * 
- * @param pListeDesChiffresUtilisateurs
- * @param pListeDeLaCombinaisonOrdinateur
- * @return comparaison des deux listes et retourne un caractere indiquant le + ou - ou = suivant le resultat
- */
-/**public static String comparaisonTableau(ArrayList<Integer> pListeDesChiffresUtilisateurs, ArrayList<Integer> pListeDeLaCombinaisonOrdinateur) {
-	String signe = " ";
-	String resultat = " ";
-
-	for (int i = 0; i < pListeDesChiffresUtilisateurs.size(); i++) {
-
-		if (pListeDesChiffresUtilisateurs.get(i) < pListeDeLaCombinaisonOrdinateur.get(i)) {
-			signe = "+";
-		}else if (pListeDesChiffresUtilisateurs.get(i) > pListeDeLaCombinaisonOrdinateur.get(i)){
-			signe = "-";
-		}else {
-			signe = "=";
-		}
-			resultat = resultat + signe;
-
-	}
-
-	return resultat;
-}*/
 
 /**
  * 
