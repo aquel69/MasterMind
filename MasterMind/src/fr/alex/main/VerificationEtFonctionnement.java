@@ -7,11 +7,7 @@ public class VerificationEtFonctionnement {
 	private int choixDuModeJeux;
 	private String verificationSaisie;
 	private boolean lettre, empty,nbCouleur;
-	
-	
-
-
-	//RessourcesMaster ressources = new RessourcesMaster();
+		
 	Joueurs joueurs = new Joueurs();
 	
 	public VerificationEtFonctionnement() {

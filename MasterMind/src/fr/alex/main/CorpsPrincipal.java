@@ -72,12 +72,12 @@ public class CorpsPrincipal {
 					do {
 						/**Boucle permettant de s'assurer du nombre de caractère saisie					
 						 */
-						do {
+						while (fonctionnement.getVerificationSaisie().length() != RessourcesMaster.getNbDeChiffreCombinaison()) {
 
 							//saisie d'une proposition par l'utilisateur
 							fonctionnement.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ RessourcesMaster.getNbDeChiffreCombinaison() +  " chiffres compris entre  1 et " + RessourcesMaster.getNbDeCouleur(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + RessourcesMaster.getNbDeCouleur(),"veuillez rentrer le bon nombre de chiffre demandé, a savoir " + RessourcesMaster.getNbDeChiffreCombinaison());
 						
-						}while (fonctionnement.getVerificationSaisie().length() != RessourcesMaster.getNbDeChiffreCombinaison());
+						}
 						
 						combinaisonMystere.comparaisonTableau(combinaisonMystere.getCombinaison(), fonctionnement.getVerificationSaisie());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositions());

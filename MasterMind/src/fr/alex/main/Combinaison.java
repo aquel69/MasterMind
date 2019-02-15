@@ -1,6 +1,7 @@
 package fr.alex.main;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -16,11 +17,8 @@ public class Combinaison {
 	private int malPlace = 0;
 		
 	private boolean [] chiffreCombinaisonEnPlace = new boolean[RessourcesMaster.getNbDeChiffreCombinaison()];
-	private ArrayList <String> recapitulatifDesPrecedentesPropositions = new ArrayList<String>();
+	private List <String> recapitulatifDesPrecedentesPropositions = new ArrayList<String>();
 		
-	
-	
-	
 	public Combinaison() {
 		
 	}
@@ -81,10 +79,10 @@ public class Combinaison {
 		
 	}*/
 	
-	public void affichageDuResultatEtDesIndices(ArrayList<String> pRecapitulatifDesPrecedentesPropositions) {
+	public void affichageDuResultatEtDesIndices(List<String> list) {
 		String resultat = "";
-		for(String n : pRecapitulatifDesPrecedentesPropositions)
-			resultat = resultat + n + "\n";
+		for(String n : list)
+			resultat += n + "\n";
 		
 		JOptionPane.showMessageDialog(null, resultat);
 		
@@ -99,7 +97,7 @@ public class Combinaison {
 		this.combinaison = combinaison;
 	}
 
-	public ArrayList<String> getRecapitulatifPrecedentesPropositions() {
+	public List<String> getRecapitulatifPrecedentesPropositions() {
 		return recapitulatifDesPrecedentesPropositions;
 	}
 
