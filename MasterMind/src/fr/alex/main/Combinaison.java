@@ -25,13 +25,13 @@ public class Combinaison {
 	
 	public void generationDuNombreMystere(Random randomChiffreMystere, int pNB_COMBINAISON) {
 		
-		char chiffre = ' ';
+		char chiffreChar = ' ';
 		//try {
 				for (int i = 0; i < pNB_COMBINAISON; i++) {
-				int pNb = randomChiffreMystere.nextInt(RessourcesMaster.getNbDeCouleur() - 1 + 1) + 1;
-				chiffre = Integer.toString(pNb).charAt(0);	
-				System.out.println(chiffre);
-				this.combinaison = this.combinaison + chiffre;
+				int chiffreMystereEntier = randomChiffreMystere.nextInt(RessourcesMaster.getNbDeCouleur() - 1 + 1) + 1;
+				chiffreChar = Integer.toString(chiffreMystereEntier).charAt(0);	
+				System.out.println(chiffreChar);
+				this.combinaison = this.combinaison + chiffreChar;
 			}
 			
 		//}catch(Exception e)

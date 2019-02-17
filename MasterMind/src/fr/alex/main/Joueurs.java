@@ -1,24 +1,24 @@
 package fr.alex.main;
 
 public class  Joueurs {
-	private String saisie;
+	protected String saisieDuNbMystere;
 	
 	
 	public Joueurs() {
 		
 	}
-
-	public String getSaisie() {
-		return saisie;
+	
+	public Joueurs(String saisieDuNbMystere) {
+		this.saisieDuNbMystere = saisieDuNbMystere;
 	}
 
-	public void setSaisie(String saisie) {
-		this.saisie = saisie;
+	public String getSaisieDuNbMystere() {
+		return saisieDuNbMystere;
 	}
 
-	
-
-	
+	public void setSaisieDuNbMystere(String saisieDuNbMystere) {
+		this.saisieDuNbMystere = saisieDuNbMystere;
+	}
 	
 	
 	

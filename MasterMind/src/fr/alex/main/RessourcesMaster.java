@@ -14,55 +14,55 @@ public class RessourcesMaster {
 	private String nombreDeCoupMaxstring;
 	private String nombreDeCouleurstring;
 	
-	private String reponse;
-	private boolean verite;
-	private boolean verite2;
+	private String valeur;
+	private boolean lettre;
+	private boolean empty;
 	
 	VerificationEtFonctionnement verification = new VerificationEtFonctionnement();
 	
 	public RessourcesMaster(){
 		ResourceBundle bundle = ResourceBundle.getBundle("config");
 		nombreDeChiffreCombinaisonString = bundle.getString("masterMind.nbDeChiffreCombinaison");
-		nombreDeChiffreCombinaisonString = verificationSaisieUtilisateurMultiple(nombreDeChiffreCombinaisonString, "le parametre nb de Chiffre étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
+		nombreDeChiffreCombinaisonString = verificationValeurProperties(nombreDeChiffreCombinaisonString, "le parametre nb de Chiffre étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
 		nbDeChiffreCombinaison = Integer.parseInt(nombreDeChiffreCombinaisonString);
 		
 		nombreDeCoupMaxstring = bundle.getString("masterMind.nbDeCoupMax");
-		nombreDeCoupMaxstring = verificationSaisieUtilisateurMultiple(nombreDeCoupMaxstring, "le parametre nb de coups étant une lettre je l'ai remplacé par 9", "le parametre nb de Chiffre étant vide je l'ai remplacé par 9", "9");
+		nombreDeCoupMaxstring = verificationValeurProperties(nombreDeCoupMaxstring, "le parametre nb de coups étant une lettre je l'ai remplacé par 12", "le parametre nb de Chiffre étant vide je l'ai remplacé par 12", "12");
 		nbDeCoupMax = Integer.parseInt(nombreDeCoupMaxstring);
 		
 		nombreDeCouleurstring = bundle.getString("masterMind.nbDeCouleur");
-		nombreDeCouleurstring = verificationSaisieUtilisateurMultiple(nombreDeCouleurstring, "le parametre nb de couleur étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
+		nombreDeCouleurstring = verificationValeurProperties(nombreDeCouleurstring, "le parametre nb de couleur étant une lettre je l'ai remplacé par 6", "le parametre nb de Chiffre étant vide je l'ai remplacé par 6", "6");
 		nbDeCouleur = Integer.parseInt(nombreDeCouleurstring);
 	}
 	
 		
-	public String verificationSaisieUtilisateurMultiple(String p1Demande,String p2Reponse, String p3Reponse,String pRemplacement) {
+	public String verificationValeurProperties(String valeur,String messageSiLettre, String messageSiVide,String valeurDeRemplacement) {
 			
 			do{
-				this.reponse =p1Demande;
+				this.valeur = valeur;
 				//verifie si lettre ou chiffre
-				this.verite = verifierSiLettreOuNombre(this.reponse);
+				this.lettre = verifierSiLettreOuNombre(this.valeur);
 				//verifie si il y a rien de rentré
-				this.verite2 = this.reponse.isEmpty();
+				this.empty = this.valeur.isEmpty();
 										
-				if (this.verite) {
-					JOptionPane.showMessageDialog(null, p2Reponse);
-					p1Demande = pRemplacement;
-				}else if (this.verite2) {
-					JOptionPane.showMessageDialog(null, p3Reponse);
-				p1Demande = pRemplacement;
+				if (this.lettre) {
+					JOptionPane.showMessageDialog(null, messageSiLettre);
+					valeur = valeurDeRemplacement;
+				}else if (this.empty) {
+					JOptionPane.showMessageDialog(null, messageSiVide);
+				valeur = valeurDeRemplacement;
 				}
-			}while( this.verite2 == true || this.verite == true );
+			}while( this.empty == true || this.lettre == true );
 			
-			return p1Demande;
+			return valeur;
 			
 		}
 	
-	private boolean verifierSiLettreOuNombre(String pReponse2) {
+	private boolean verifierSiLettreOuNombre(String valeur) {
 		int test = 0;
 		boolean verification = false;
-		for(int i = 0; i < pReponse2.length(); i++) {
-			test = (int) pReponse2.charAt(i);
+		for(int i = 0; i < valeur.length(); i++) {
+			test = (int) valeur.charAt(i);
 			if (test < 48 || test > 57)
 				verification = true;
 							

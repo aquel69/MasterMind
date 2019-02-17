@@ -21,7 +21,7 @@ public class VerificationEtFonctionnement {
 	 * @param pReponseSiVide
 	 *  permet de vérifier si la saisie correspond à la demande(verfication du caractère et si rien n'est rentré)
 	 */
-	public void verificationSaisieUtilisateurMultiple(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide) {
+	public void saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide) {
 			
 		do{
 			this.verificationSaisie = JOptionPane.showInputDialog(pQuestionPose);
@@ -47,7 +47,7 @@ public class VerificationEtFonctionnement {
 	 * @param p4Reponse
 	 * permet de vérifier si la saisie correspond à la demande(verfication du caractère, si rien n'est rentré et si les bons pions sont rentrés)
 	 */
-	public void verificationSaisieUtilisateurMultiple(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
+	public void saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
 		
 		
 		do{
@@ -69,17 +69,40 @@ public class VerificationEtFonctionnement {
 		}while( this.empty == true || this.lettre == true || this.nbCouleur == true );
 		
 	}
+	
+	public String saisieUtilisateurMystere(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
+		String saisie = "";
+		
+		do{
+			saisie = JOptionPane.showInputDialog(pQuestionPose);
+			//verifie si lettre ou chiffre
+			this.lettre = verifieSiLettre(saisie);
+			//verifie si il y a rien de rentré
+			this.empty = saisie.isEmpty();
+			
+			this.nbCouleur = verifieSiSaisieCorrespondAuNombreDeCouleurPropose(saisie);
+						
+			if (this.lettre) 
+				JOptionPane.showMessageDialog(null, pReponseSiLettre);
+			else if (this.empty)
+				JOptionPane.showMessageDialog(null, pReponseSiVide);
+			else if (this.nbCouleur)
+				JOptionPane.showMessageDialog(null, pPasBonneCouleur);
+			
+		}while( this.empty == true || this.lettre == true || this.nbCouleur == true );
+		return saisie;
+	}
 
 	/**
 	 * 
-	 * @param pReponse2
+	 * @param pSaisie
 	 * @return un boolen True est retourné, si une lettre est rentrée par l'utilisateur
 	 */
-	private boolean verifieSiLettre(String pReponse2) {
+	private boolean verifieSiLettre(String pSaisie) {
 		int test = 0;
 		boolean verification = false;
-		for(int i = 0; i < pReponse2.length(); i++) {
-			test = (int) pReponse2.charAt(i);
+		for(int i = 0; i < pSaisie.length(); i++) {
+			test = (int) pSaisie.charAt(i);
 			if (test < 48 || test > 57)
 				verification = true;
 							
@@ -99,17 +122,18 @@ public class VerificationEtFonctionnement {
 		String s ="";
 		boolean verification = false;
 		
-		
-			for(int i = 0; i < RessourcesMaster.getNbDeCouleur(); i++) {
+		if(verificationSaisie.length() == RessourcesMaster.getNbDeChiffreCombinaison()) {	
+			for(int i = 0; i < RessourcesMaster.getNbDeChiffreCombinaison(); i++) {
 				c = pSaisie.charAt(i);
 				s = Character.toString(c);
 				j = Integer.parseInt(s);
 				
-				if (j < 1 || j > RessourcesMaster.getNbDeCouleur())
+				if (j < 1 || j > RessourcesMaster.getNbDeCouleur()) {
 					verification = true;
-				System.out.println(j);
+				}
 			}
-		
+		}else 
+			verification = true;
 		
 		return verification;
 	}

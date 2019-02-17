@@ -16,15 +16,15 @@ public class CorpsPrincipal {
 	String reponse = " ", reponseModeDeveloppeur = " ",  clavier = "  ",resultat = " ";
 	char carac = ' ';
 	String choixModeDeJeu = " ";
+		
+	
+	static int nbDeCoupsJoues = 0;
 	
 
-	
-	//final int NB_DE_COUP_MAX = 7;
-	int nbDeCoupsJoues = 0;
+
 	int nombreModeDeJeu = 0;
 	int modeDeveloppeur = 0;
-	//int nombreDeChiffreCombinaison = 4;
-
+	
 	boolean ordinateurGagne = false;
 	boolean utilisateurGagne = false;
 	
@@ -33,6 +33,7 @@ public class CorpsPrincipal {
 	Combinaison combinaisonMystere = new Combinaison();
 	Joueurs joueurs = new Joueurs();
 	Utilisateur utilisateur = new Utilisateur();
+	Ordinateur ordinateur = new Ordinateur();
 	VerificationEtFonctionnement fonctionnement = new VerificationEtFonctionnement();
 	
 	public CorpsPrincipal() {
@@ -48,7 +49,7 @@ public class CorpsPrincipal {
 				presentation();
 				do {
 				
-					fonctionnement.verificationSaisieUtilisateurMultiple("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
+					fonctionnement.saisieUtilisateur("Menu entrez un chiffre 1 à 5", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
 					
 				}while(fonctionnement.getChoixDuModeJeux() < 0 || fonctionnement.getChoixDuModeJeux() > 5 || fonctionnement.getChoixDuModeJeux() == 0);
 				
@@ -72,12 +73,12 @@ public class CorpsPrincipal {
 					do {
 						/**Boucle permettant de s'assurer du nombre de caractère saisie					
 						 */
-						while (fonctionnement.getVerificationSaisie().length() != RessourcesMaster.getNbDeChiffreCombinaison()) {
+						do {
 
 							//saisie d'une proposition par l'utilisateur
-							fonctionnement.verificationSaisieUtilisateurMultiple("Veuillez entrer une combinaison à "+ RessourcesMaster.getNbDeChiffreCombinaison() +  " chiffres compris entre  1 et " + RessourcesMaster.getNbDeCouleur(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + RessourcesMaster.getNbDeCouleur(),"veuillez rentrer le bon nombre de chiffre demandé, a savoir " + RessourcesMaster.getNbDeChiffreCombinaison());
+							fonctionnement.saisieUtilisateur("Veuillez entrer une combinaison à "+ RessourcesMaster.getNbDeChiffreCombinaison() +  " chiffres compris entre  1 et " + RessourcesMaster.getNbDeCouleur(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + RessourcesMaster.getNbDeCouleur() + "\net la combinaison contient " + RessourcesMaster.getNbDeChiffreCombinaison() + " chiffres","veuillez rentrer le bon nombre de chiffre demandé, a savoir " + RessourcesMaster.getNbDeChiffreCombinaison());
 						
-						}
+						}while(fonctionnement.getVerificationSaisie().length() != RessourcesMaster.getNbDeChiffreCombinaison());
 						
 						combinaisonMystere.comparaisonTableau(combinaisonMystere.getCombinaison(), fonctionnement.getVerificationSaisie());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositions());
@@ -112,10 +113,63 @@ public class CorpsPrincipal {
 					break;
 				}
 
+				
 				// mode defenseur
 				case 2:
 					//Boucle permettant de recommencer une partie
-					
+					do {
+						//reinitialisation du nombre mystère et du nb de coup joué pour une nouvelle partie
+						
+						nbDeCoupsJoues = 0;
+						//initialisation de la combinaison mystère
+								
+						
+						// Boucle permettant de comparer les valeurs des deux tableaux
+						do {
+							//Boucle permettant de s'assurer du nombre de caractère saisie					
+							do {
+								fonctionnement.saisieUtilisateur("Veuillez entrer une combinaison mystère à "+ RessourcesMaster.getNbDeChiffreCombinaison() +  " chiffres compris entre  1 et " + RessourcesMaster.getNbDeCouleur(), "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre", "les pions sont compris entre 1 et " + RessourcesMaster.getNbDeCouleur() + "\net la combinaison contient " + RessourcesMaster.getNbDeChiffreCombinaison() + " chiffres","veuillez rentrer le bon nombre de chiffre demandé, a savoir " + RessourcesMaster.getNbDeChiffreCombinaison());
+								//utilisateur.setSaisieDuNbMystere(saisie);
+								//saisie de la combinaison mystère par l'utilisateur
+								System.out.println(fonctionnement.getVerificationSaisie());
+							}while(fonctionnement.getVerificationSaisie().length() != RessourcesMaster.getNbDeChiffreCombinaison());
+							
+							ordinateur.setPropositionOrdinateur(ordinateur.propositonDeLOrdinateurEnFonctionDesReponse());
+							System.out.println(ordinateur.getPropositionOrdinateur());
+							combinaisonMystere.comparaisonTableau(fonctionnement.getVerificationSaisie(), ordinateur.getPropositionOrdinateur());
+							
+							//ajout à chaque tour d'un coup joué
+							nbDeCoupsJoues++;
+
+						}while(!ordinateur.getPropositionOrdinateur().equals(fonctionnement.getVerificationSaisie()) && nbDeCoupsJoues < RessourcesMaster.getNbDeCoupMax());
+						
+						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositions());
+						
+						if(nbDeCoupsJoues<RessourcesMaster.getNbDeCoupMax())
+							resultatFinalGagnantOrdi(ordinateur.getPropositionOrdinateur(), nbDeCoupsJoues);
+						else resultatFinalPerdantOrdi(ordinateur.getPropositionOrdinateur(), nbDeCoupsJoues);
+
+							/** boucle pour relancer le programme, on entre un 'O' pour recommence et un 'N' pour quitter le programme
+							 * 	demande d'entrer 'O' ou 'N' dans le Scanner
+							 */
+						do {
+							/**
+							 * boucle permettant d'eviter une erreur en s'assurant qu'il n y est qu'un seul caractère
+							 */
+							do {
+								clavier = saisieRelancePartie();
+							}while(clavier.length() != 1);
+								carac = clavier.charAt(0);
+
+						}while(carac != 'O' && carac != 'N' && carac != 'Q');
+
+					}while(carac == 'O');
+					if (carac == 'N')
+					break;
+					else {
+						nombreModeDeJeu = 5;
+						break;
+					}
 
 				case 3 :
 					//Boucle permettant de recommencer une partie
@@ -438,11 +492,11 @@ public static void resultatFinalGagnant(ArrayList<Integer> pNbrePropose, int pNb
  * @param pNbreProposeParUtilisateur
  * @param pNbDeCoups
  */
-	public static void resultatFinalGagnantOrdi( ArrayList<Integer> pNbreProposeParUtilisateur, int pNbDeCoups) {
+	public static void resultatFinalGagnantOrdi( String pNbreProposeParUtilisateur, int pNbDeCoups) {
 	JOptionPane.showMessageDialog(null, 
 	"-----------------------------------------------------------\n" +
 	"      l'ordinateur a bien trouvé la solution\n                           qui est : " +
-	renvoiLeResultatEnString(pNbreProposeParUtilisateur) +
+	pNbreProposeParUtilisateur +
 	"\n                  Il a réussi en " + pNbDeCoups + " coups\n" +
 	"-----------------------------------------------------------");
 }
@@ -453,12 +507,12 @@ public static void resultatFinalGagnant(ArrayList<Integer> pNbrePropose, int pNb
  * @param pNbreProposeParUtilisateur
  * @param pNbCoupMax
  */
-public static void resultatFinalPerdantOrdi(ArrayList<Integer> pNbreProposeParUtilisateur, int pNbCoupMax) {
+public static void resultatFinalPerdantOrdi(String pNbreProposeParUtilisateur, int pNbCoupMax) {
 	JOptionPane.showMessageDialog(null, 
 	"---------------------------------------------------------------\n" +
 	"L'ordinateur n'a pas trouvé la bonne réponse!\n" +
 	"Dans le nombre de coup imparti qui était de " + pNbCoupMax +
-	"\n----------------La solution était : " + renvoiLeResultatEnString(pNbreProposeParUtilisateur) + "----------------" +
+	"\n----------------La solution était : " + pNbreProposeParUtilisateur + "----------------" +
 	"\n---------------------------------------------------------------");
 }
 
