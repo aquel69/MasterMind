@@ -1,0 +1,7 @@
+[ERROR] 2019-02-25 10:11:49.569 [main] Combinaison - erreur sur le nombre mystere
+java.lang.StringIndexOutOfBoundsException: String index out of range: 5
+	at java.lang.StringLatin1.charAt(StringLatin1.java:47) ~[?:?]
+	at java.lang.String.charAt(String.java:693) ~[?:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:37) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:70) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]

@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 public class VerificationEtFonctionnement {
 	
 	private int choixDuModeJeux;
-	private String verificationSaisie;
+	private String saisieUtilisateur;
 	private boolean lettre, empty,nbCouleur;
 		
 	Joueurs joueurs = new Joueurs();
@@ -24,11 +24,11 @@ public class VerificationEtFonctionnement {
 	public void saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide) {
 			
 		do{
-			this.verificationSaisie = JOptionPane.showInputDialog(pQuestionPose);
+			this.saisieUtilisateur = JOptionPane.showInputDialog(pQuestionPose);
 			//verifie si lettre ou chiffre
-			this.lettre = verifieSiLettre(this.verificationSaisie);
+			this.lettre = verifieSiLettre(this.saisieUtilisateur);
 			//verifie si il y a rien de rentré
-			this.empty = this.verificationSaisie.isEmpty();
+			this.empty = this.saisieUtilisateur.isEmpty();
 									
 			if (this.lettre) 
 				JOptionPane.showMessageDialog(null, pReponseSiLettre);
@@ -51,13 +51,13 @@ public class VerificationEtFonctionnement {
 		
 		
 		do{
-			this.verificationSaisie = JOptionPane.showInputDialog(pQuestionPose);
+			this.saisieUtilisateur = JOptionPane.showInputDialog(pQuestionPose);
 			//verifie si lettre ou chiffre
-			this.lettre = verifieSiLettre(this.verificationSaisie);
+			this.lettre = verifieSiLettre(this.saisieUtilisateur);
 			//verifie si il y a rien de rentré
-			this.empty = this.verificationSaisie.isEmpty();
+			this.empty = this.saisieUtilisateur.isEmpty();
 			
-			this.nbCouleur = verifieSiSaisieCorrespondAuNombreDeCouleurPropose(verificationSaisie);
+			this.nbCouleur = verifieSiSaisieCorrespondAuNombreDeCouleurPropose(saisieUtilisateur);
 						
 			if (this.lettre) 
 				JOptionPane.showMessageDialog(null, pReponseSiLettre);
@@ -70,7 +70,7 @@ public class VerificationEtFonctionnement {
 		
 	}
 	
-	public String saisieUtilisateurMystere(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
+	public String saisieUtilisateurCombinaisonMystere(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
 		String saisie = "";
 		
 		do{
@@ -98,7 +98,7 @@ public class VerificationEtFonctionnement {
 	 * @param pSaisie
 	 * @return un boolen True est retourné, si une lettre est rentrée par l'utilisateur
 	 */
-	private boolean verifieSiLettre(String pSaisie) {
+	public boolean verifieSiLettre(String pSaisie) {
 		int test = 0;
 		boolean verification = false;
 		for(int i = 0; i < pSaisie.length(); i++) {
@@ -116,19 +116,19 @@ public class VerificationEtFonctionnement {
 	 * @return
 	 * un booleen true est retourné, si le nombre de pions saisie ne correspond pas à celui demandé
 	 */
-	private boolean verifieSiSaisieCorrespondAuNombreDeCouleurPropose(String pSaisie) {
+	public boolean verifieSiSaisieCorrespondAuNombreDeCouleurPropose(String pSaisie) {
 		int j;
 		char c = ' ';
 		String s ="";
 		boolean verification = false;
 		
-		if(verificationSaisie.length() == RessourcesMaster.getNbDeChiffreCombinaison()) {	
-			for(int i = 0; i < RessourcesMaster.getNbDeChiffreCombinaison(); i++) {
+		if(pSaisie.length() == RessourcesMaster.nbDeChiffreCombinaison) {	
+			for(int i = 0; i < RessourcesMaster.nbDeChiffreCombinaison; i++) {
 				c = pSaisie.charAt(i);
 				s = Character.toString(c);
 				j = Integer.parseInt(s);
 				
-				if (j < 1 || j > RessourcesMaster.getNbDeCouleur()) {
+				if (j < 1 || j > RessourcesMaster.nbDeCouleur) {
 					verification = true;
 				}
 			}
@@ -139,21 +139,19 @@ public class VerificationEtFonctionnement {
 	}
 	
 	protected int getChoixDuModeJeux() {
-		this.choixDuModeJeux = Integer.parseInt(getVerificationSaisie());
+		this.choixDuModeJeux = Integer.parseInt(getSaisieUtilisateur());
 		return choixDuModeJeux;
 	}
 
-
 	protected void setChoixDuModeJeux(int choixDuModeJeux) {
 		this.choixDuModeJeux = choixDuModeJeux;
-		
 	}
 	
-	public String getVerificationSaisie() {
-		return verificationSaisie;
+	public String getSaisieUtilisateur() {
+		return saisieUtilisateur;
 	}
 
-	public void setVerificationSaisie(String verificationSaisie) {
-		this.verificationSaisie = verificationSaisie;
+	public void setSaisieUtilisateur(String saisieUtilisateur) {
+		this.saisieUtilisateur = saisieUtilisateur;
 	}
 }

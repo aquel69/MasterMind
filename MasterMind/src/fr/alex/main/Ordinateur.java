@@ -11,22 +11,20 @@ public class Ordinateur extends Joueurs{
 		
 	}
 	
-	
-	
-	public String propositonDeLOrdinateurEnFonctionDesReponse(Random pChiffreCombinaison) {
+	public String propositionDeLOrdinateurEnFonctionDesReponse(Random pChiffreAleatoireCombinaison, int pNbDeChiffreCombinaison) {
 		String saisie = "";
 		char chiffreChar;
 		
-		if(CorpsPrincipal.nbDeCoupsJoues == 0) {
-			int chiffreReponseEntier = pChiffreCombinaison.nextInt(RessourcesMaster.getNbDeCouleur() - 1 + 1) + 1;
+		for(int i = 0;i < pNbDeChiffreCombinaison;i++){
+			int chiffreReponseEntier = pChiffreAleatoireCombinaison.nextInt(RessourcesMaster.nbDeCouleur - 1 + 1) + 1;
 			chiffreChar = Integer.toString(chiffreReponseEntier).charAt(0);
+			saisie += chiffreChar;
 		}
 		
 		return saisie;
 	}
 	
 	
-
 	protected String getPropositionOrdinateur() {
 		return propositionOrdinateur;
 	}

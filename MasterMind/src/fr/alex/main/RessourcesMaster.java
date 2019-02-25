@@ -6,9 +6,9 @@ import javax.swing.JOptionPane;
 
 public class RessourcesMaster {
 		
-	private static int nbDeChiffreCombinaison = 0;
-	private static int nbDeCoupMax = 0;
-	private static int nbDeCouleur = 0;
+	public static int nbDeChiffreCombinaison = 0;
+	public static int nbDeCoupMax = 0;
+	public static int nbDeCouleur = 0;
 	
 	private String nombreDeChiffreCombinaisonString;
 	private String nombreDeCoupMaxstring;
@@ -55,7 +55,6 @@ public class RessourcesMaster {
 			}while( this.empty == true || this.lettre == true );
 			
 			return valeur;
-			
 		}
 	
 	private boolean verifierSiLettreOuNombre(String valeur) {
@@ -69,35 +68,5 @@ public class RessourcesMaster {
 		}
 		return verification;
 	}
-		
 	
-	public static int getNbDeChiffreCombinaison() {
-		return nbDeChiffreCombinaison;
-	}
-		
-			
-	public static void setNbDeChiffreCombinaison(int nbDeChiffreCombinaison) {
-		RessourcesMaster.nbDeChiffreCombinaison = nbDeChiffreCombinaison;
-	}
-		
-	
-	public static int getNbDeCoupMax() {
-		return nbDeCoupMax;
-	}
-		
-	
-	public static void setNbDeCoupMax(int nbDeCoupMax) {
-		RessourcesMaster.nbDeCoupMax = nbDeCoupMax;
-	}
-		
-	
-	public static int getNbDeCouleur() {
-		return nbDeCouleur;
-	}
-		
-	
-	public static void setNbDeCouleur(int nbDeCouleur) {
-		RessourcesMaster.nbDeCouleur = nbDeCouleur;
-	}
-		
 }
