@@ -32,19 +32,17 @@ public class Combinaison {
 	public void generationDuNombreMystere(Random randomChiffreMystere, int pNB_COMBINAISON, int pChoixDuModeDeveloppeur) {
 		
 		char chiffreChar = ' ';
-		try {
-				for (int i = 0; i < pNB_COMBINAISON; i++) {
-				int chiffreMystereEntier = randomChiffreMystere.nextInt(RessourcesMaster.nbDeCouleur - 1 + 1) + 1;
-				chiffreChar = Integer.toString(chiffreMystereEntier).charAt(0);	
-				System.out.println(chiffreChar);
-				this.combinaison = this.combinaison + chiffreChar;
-			}
-				if(pChoixDuModeDeveloppeur == 1) {
-				JOptionPane.showMessageDialog(null, "la combinaison mystère est " + this.combinaison);
-				}				
-		}catch(Exception e)
-		{loggerComb.error("erreur sur le nombre mystere", e);}
+		for (int i = 0; i < pNB_COMBINAISON; i++) {
+			int chiffreMystereEntier = randomChiffreMystere.nextInt(RessourcesMaster.nbDeCouleur - 1 + 1) + 1;
+			chiffreChar = Integer.toString(chiffreMystereEntier).charAt(0);	
+			System.out.println(chiffreChar);
+			this.combinaison = this.combinaison + chiffreChar;
+		}
 		
+		if(pChoixDuModeDeveloppeur == 1) {
+			JOptionPane.showMessageDialog(null, "la combinaison mystère est " + this.combinaison);
+		}				
+				
 	}
 	
 	public void comparaisonTableauCombinaisonJoueur(String pCombinaison, String pReponse) {
@@ -54,7 +52,6 @@ public class Combinaison {
 		char [] tableauReponse = pReponse.toCharArray();
 		char [] tableauCombinaison = pCombinaison.toCharArray();
 		
-		try {
 		//initialisation du tableau boolean complet en false
 		for (int i = 0; i < chiffreCombinaisonEnPlace.length; i++) {
 			chiffreCombinaisonEnPlace[i] = false;
@@ -79,10 +76,7 @@ public class Combinaison {
 			}
 			recapitulatifDeLaPropositionJoueur = pReponse + "  BP : " + Integer.toString(bienPlace) + " MP : " + Integer.toString(malPlace);
 		}
-		
 		recapitulatifDesPrecedentesPropositionsJoueurs.add(recapitulatifDeLaPropositionJoueur);
-		}catch(Exception e)
-		{loggerComb.error("erreur sur la comparaison tableau joueur", e);}
 	}
 	
 	public void comparaisonTableauCombinaisonOrdi(String pCombinaison, String pReponse) {

@@ -4,6 +4,9 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class RessourcesMaster {
 		
 	public static int nbDeChiffreCombinaison = 0;
@@ -20,9 +23,16 @@ public class RessourcesMaster {
 	
 	VerificationEtFonctionnement verification = new VerificationEtFonctionnement();
 	
+	private static Logger loggerRessources= LogManager.getLogger(Combinaison.class.getName());
+	
 	public RessourcesMaster(){
 		ResourceBundle bundle = ResourceBundle.getBundle("config");
+		try {
 		nombreDeChiffreCombinaisonString = bundle.getString("masterMind.nbDeChiffreCombinaison");
+		} catch(Exception e)
+		{loggerRessources.error("le nombre de chiffre combinaison est manquant, la valeur est de 4", e);
+		nombreDeChiffreCombinaisonString = "4";
+		}
 		nombreDeChiffreCombinaisonString = verificationValeurProperties(nombreDeChiffreCombinaisonString, "le parametre nb de Chiffre étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
 		nbDeChiffreCombinaison = Integer.parseInt(nombreDeChiffreCombinaisonString);
 		
