@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class Combinaison {
 	
 	private static Logger loggerComb= LogManager.getLogger(Combinaison.class.getName());
+		
 	private String combinaison = "";
 	private String recapitulatifDeLaPropositionJoueur = "";
 	private String recapitulatifDeLaPropositionOrdi = "";
@@ -28,8 +29,8 @@ public class Combinaison {
 		
 	}
 	
-	public void generationDuNombreMystere(Random randomChiffreMystere, int pNB_COMBINAISON) {
-		combinaison ="";
+	public void generationDuNombreMystere(Random randomChiffreMystere, int pNB_COMBINAISON, int pChoixDuModeDeveloppeur) {
+		
 		char chiffreChar = ' ';
 		try {
 				for (int i = 0; i < pNB_COMBINAISON; i++) {
@@ -38,7 +39,9 @@ public class Combinaison {
 				System.out.println(chiffreChar);
 				this.combinaison = this.combinaison + chiffreChar;
 			}
-			
+				if(pChoixDuModeDeveloppeur == 1) {
+				JOptionPane.showMessageDialog(null, "la combinaison mystère est " + this.combinaison);
+				}				
 		}catch(Exception e)
 		{loggerComb.error("erreur sur le nombre mystere", e);}
 		

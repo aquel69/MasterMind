@@ -1,22 +1,30 @@
 package fr.alex.main;
 
-public class Utilisateur extends Joueurs {
-	protected String saisieDuNbMystere;
+public class Utilisateur{
+	String choixDuModeDeveloppeur;
+	private String choixDuModeDeJeux;
+	private int entierChoixDuModeDeveloppeur;
 	
-	
-		
 	public Utilisateur() {
 		
 	}
-	
-
-	public String getSaisieDuNbMystere() {
-		return saisieDuNbMystere;
+	public int getChoixDuModeDeveloppeur() {
+		this.entierChoixDuModeDeveloppeur = Integer.parseInt(this.choixDuModeDeveloppeur);
+		return this.entierChoixDuModeDeveloppeur;
 	}
 
-	public void setSaisieDuNbMystere(String saisieDuNbMystere) {
-		this.saisieDuNbMystere = saisieDuNbMystere;
+	public void setChoixDuModeDeveloppeur(String choixDuModeDeveloppeur) {
+		this.choixDuModeDeveloppeur = choixDuModeDeveloppeur;
 	}
-	
-	
+
+	public int getChoixDuModeDeJeux() {
+		int choixDuModeDeJeux = Integer.parseInt(this.choixDuModeDeJeux);
+		return choixDuModeDeJeux;
+	}
+
+	public void setChoixDuModeDeJeux(String choixDuModeDeJeux) {
+		this.choixDuModeDeJeux = choixDuModeDeJeux;
+	}
+
+				
 }

@@ -2,13 +2,16 @@ package fr.alex.main;
 
 import javax.swing.JOptionPane;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class VerificationEtFonctionnement {
 	
-	private int choixDuModeJeux;
 	private String saisieUtilisateur;
 	private boolean lettre, empty,nbCouleur;
 		
 	Joueurs joueurs = new Joueurs();
+	private static Logger loggerVerif= LogManager.getLogger(Combinaison.class.getName());
 	
 	public VerificationEtFonctionnement() {
 		
@@ -21,22 +24,29 @@ public class VerificationEtFonctionnement {
 	 * @param pReponseSiVide
 	 *  permet de vérifier si la saisie correspond à la demande(verfication du caractère et si rien n'est rentré)
 	 */
-	public void saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide) {
-			
-		do{
-			this.saisieUtilisateur = JOptionPane.showInputDialog(pQuestionPose);
-			//verifie si lettre ou chiffre
-			this.lettre = verifieSiLettre(this.saisieUtilisateur);
-			//verifie si il y a rien de rentré
-			this.empty = this.saisieUtilisateur.isEmpty();
-									
-			if (this.lettre) 
-				JOptionPane.showMessageDialog(null, pReponseSiLettre);
-			else if (this.empty)
-				JOptionPane.showMessageDialog(null, pReponseSiVide);
-			
-		}while( this.empty == true || this.lettre == true );
+	public String saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide) {
+		String saisie = null;
 		
+		try {
+			do{
+				saisie = JOptionPane.showInputDialog(pQuestionPose);
+				//verifie si lettre ou chiffre
+				this.lettre = verifieSiLettre(saisie);
+				//verifie si il y a rien de rentré
+				this.empty = saisie.isEmpty();
+										
+				if (this.lettre) 
+					JOptionPane.showMessageDialog(null, pReponseSiLettre);
+				else if (this.empty)
+					JOptionPane.showMessageDialog(null, pReponseSiVide);
+				
+			}while( this.empty == true || this.lettre == true );
+		}catch(Exception e) {
+			loggerVerif.error("erreur dans la saisie utilisateur 3 parametres", e);
+		}
+		
+		return saisie;
+			
 	}
 	
 	/**
@@ -47,52 +57,33 @@ public class VerificationEtFonctionnement {
 	 * @param p4Reponse
 	 * permet de vérifier si la saisie correspond à la demande(verfication du caractère, si rien n'est rentré et si les bons pions sont rentrés)
 	 */
-	public void saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
+	public String saisieUtilisateur(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
+		String saisie = null;
 		
-		
-		do{
-			this.saisieUtilisateur = JOptionPane.showInputDialog(pQuestionPose);
-			//verifie si lettre ou chiffre
-			this.lettre = verifieSiLettre(this.saisieUtilisateur);
-			//verifie si il y a rien de rentré
-			this.empty = this.saisieUtilisateur.isEmpty();
-			
-			this.nbCouleur = verifieSiSaisieCorrespondAuNombreDeCouleurPropose(saisieUtilisateur);
-						
-			if (this.lettre) 
-				JOptionPane.showMessageDialog(null, pReponseSiLettre);
-			else if (this.empty)
-				JOptionPane.showMessageDialog(null, pReponseSiVide);
-			else if (this.nbCouleur)
-				JOptionPane.showMessageDialog(null, pPasBonneCouleur);
-			
-		}while( this.empty == true || this.lettre == true || this.nbCouleur == true );
-		
-	}
-	
-	public String saisieUtilisateurCombinaisonMystere(String pQuestionPose,String pReponseSiLettre, String pReponseSiVide, String pPasBonneCouleur, String pNbDeChiffreSaisieMauvais) {
-		String saisie = "";
-		
-		do{
-			saisie = JOptionPane.showInputDialog(pQuestionPose);
-			//verifie si lettre ou chiffre
-			this.lettre = verifieSiLettre(saisie);
-			//verifie si il y a rien de rentré
-			this.empty = saisie.isEmpty();
-			
-			this.nbCouleur = verifieSiSaisieCorrespondAuNombreDeCouleurPropose(saisie);
-						
-			if (this.lettre) 
-				JOptionPane.showMessageDialog(null, pReponseSiLettre);
-			else if (this.empty)
-				JOptionPane.showMessageDialog(null, pReponseSiVide);
-			else if (this.nbCouleur)
-				JOptionPane.showMessageDialog(null, pPasBonneCouleur);
-			
-		}while( this.empty == true || this.lettre == true || this.nbCouleur == true );
+		try {
+			do{
+				saisie = JOptionPane.showInputDialog(pQuestionPose);
+				//verifie si lettre ou chiffre
+				this.lettre = verifieSiLettre(saisie);
+				//verifie si il y a rien de rentré
+				this.empty = saisie.isEmpty();
+				
+				this.nbCouleur = verifieSiSaisieCorrespondAuNombreDeCouleurPropose(saisie);
+							
+				if (this.lettre) 
+					JOptionPane.showMessageDialog(null, pReponseSiLettre);
+				else if (this.empty)
+					JOptionPane.showMessageDialog(null, pReponseSiVide);
+				else if (this.nbCouleur)
+					JOptionPane.showMessageDialog(null, pPasBonneCouleur);
+				
+			}while( this.empty == true || this.lettre == true || this.nbCouleur == true );
+			}catch(Exception e) {
+				loggerVerif.error("erreur dans la saisie utilisateur 5 parametres", e);
+			}
 		return saisie;
 	}
-
+	
 	/**
 	 * 
 	 * @param pSaisie
@@ -138,15 +129,7 @@ public class VerificationEtFonctionnement {
 		return verification;
 	}
 	
-	protected int getChoixDuModeJeux() {
-		this.choixDuModeJeux = Integer.parseInt(getSaisieUtilisateur());
-		return choixDuModeJeux;
-	}
-
-	protected void setChoixDuModeJeux(int choixDuModeJeux) {
-		this.choixDuModeJeux = choixDuModeJeux;
-	}
-	
+		
 	public String getSaisieUtilisateur() {
 		return saisieUtilisateur;
 	}

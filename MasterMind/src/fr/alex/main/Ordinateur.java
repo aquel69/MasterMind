@@ -2,9 +2,8 @@ package fr.alex.main;
 
 import java.util.Random;
 
-public class Ordinateur extends Joueurs{
-	protected String propositionOrdinateur;
-	
+public class Ordinateur extends Utilisateur{
+	private String propositionOrdinateur;
 	
 	
 	public Ordinateur() {

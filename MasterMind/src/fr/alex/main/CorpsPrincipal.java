@@ -37,22 +37,23 @@ public class CorpsPrincipal {
 
 	public void init() {
 
-		/**
-		 * déclaration des classes
-		 */
-
+		do {
+			utilisateur.setChoixDuModeDeveloppeur(fonctionnement.saisieUtilisateur("Entrer 1 pour être en mode développeur ou 2 pour être en mode normal : ", "ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre"));
+		}while(utilisateur.getChoixDuModeDeveloppeur() < 0 || utilisateur.getChoixDuModeDeveloppeur() > 2 || utilisateur.getChoixDuModeDeveloppeur() == 0);
+		
 		do {
 			presentation();
+								
 			do {
 
-				fonctionnement.saisieUtilisateur("Menu entrez un chiffre 1 à 5",
-						"ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre");
-
-			} while (fonctionnement.getChoixDuModeJeux() < 0 || fonctionnement.getChoixDuModeJeux() > 5
-					|| fonctionnement.getChoixDuModeJeux() == 0);
+				utilisateur.setChoixDuModeDeJeux(fonctionnement.saisieUtilisateur("Menu entrez un chiffre 1 à 5",
+						"ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre"));
+				System.out.println(utilisateur.getChoixDuModeDeveloppeur());
+			} while (utilisateur.getChoixDuModeDeJeux() < 0 || utilisateur.getChoixDuModeDeJeux() > 5
+					|| utilisateur.getChoixDuModeDeJeux() == 0);
 
 			// switch contenant les Différents jeux
-			switch (fonctionnement.getChoixDuModeJeux()) {
+			switch (utilisateur.getChoixDuModeDeJeux()) {
 
 			// mode challenger
 			case 1:
@@ -67,7 +68,7 @@ public class CorpsPrincipal {
 					nbDeCoupsJoues = 0;
 
 					// initialisation de la combinaison mystère
-					combinaisonMystere.generationDuNombreMystere(random, RessourcesMaster.nbDeChiffreCombinaison);
+					combinaisonMystere.generationDuNombreMystere(random, RessourcesMaster.nbDeChiffreCombinaison, utilisateur.getChoixDuModeDeveloppeur());
 
 					
 					//Boucle permettant de comparer les valeurs des deux tableaux
@@ -77,7 +78,7 @@ public class CorpsPrincipal {
 						do {
 
 							// saisie d'une proposition par l'utilisateur
-							fonctionnement.saisieUtilisateur(
+							joueurs.setSaisieDUneProposition(fonctionnement.saisieUtilisateur(
 									"Veuillez entrer une combinaison à " + RessourcesMaster.nbDeChiffreCombinaison
 											+ " chiffres compris entre  1 et " + RessourcesMaster.nbDeCouleur,
 									"ne tapez pas de lettre, rentrez des chiffres",
@@ -86,18 +87,18 @@ public class CorpsPrincipal {
 											+ "\net la combinaison contient " + RessourcesMaster.nbDeChiffreCombinaison
 											+ " chiffres",
 									"veuillez rentrer le bon nombre de chiffre demandé, a savoir "
-											+ RessourcesMaster.nbDeChiffreCombinaison);
+											+ RessourcesMaster.nbDeChiffreCombinaison));
 
-						} while (fonctionnement.getSaisieUtilisateur().length() != RessourcesMaster.nbDeChiffreCombinaison);
+						} while (joueurs.getSaisieDUnePropostion().length() != RessourcesMaster.nbDeChiffreCombinaison);
 
-						combinaisonMystere.comparaisonTableauCombinaisonJoueur(combinaisonMystere.getCombinaison(),fonctionnement.getSaisieUtilisateur());
+						combinaisonMystere.comparaisonTableauCombinaisonJoueur(combinaisonMystere.getCombinaison(),joueurs.getSaisieDUnePropostion());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsJoueurs());
 						nbDeCoupsJoues++;
 
-					} while (!combinaisonMystere.getCombinaison().equals(fonctionnement.getSaisieUtilisateur())
+					} while (!combinaisonMystere.getCombinaison().equals(joueurs.getSaisieDUnePropostion())
 							&& nbDeCoupsJoues < RessourcesMaster.nbDeCoupMax);
 
-					if (combinaisonMystere.getCombinaison().equals(fonctionnement.getSaisieUtilisateur()))
+					if (combinaisonMystere.getCombinaison().equals(joueurs.getSaisieDUnePropostion()))
 						resultatFinalGagnant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 					else
 						resultatFinalPerdant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
@@ -140,7 +141,7 @@ public class CorpsPrincipal {
 					do {
 
 						// saisie de la combinaison mystère par l'utilisateur
-						fonctionnement.saisieUtilisateur(
+						joueurs.setSaisieDeLaCombinaisonMystere(fonctionnement.saisieUtilisateur(
 								"Veuillez entrer une combinaison mystère à " + RessourcesMaster.nbDeChiffreCombinaison
 										+ " chiffres compris entre  1 et " + RessourcesMaster.nbDeCouleur,
 								"ne tapez pas de lettre, rentrez des chiffres", "veuillez rentrer au moins un chiffre",
@@ -148,24 +149,23 @@ public class CorpsPrincipal {
 										+ "\net la combinaison contient " + RessourcesMaster.nbDeChiffreCombinaison
 										+ " chiffres",
 								"veuillez rentrer le bon nombre de chiffre demandé, a savoir "
-										+ RessourcesMaster.nbDeChiffreCombinaison);
+										+ RessourcesMaster.nbDeChiffreCombinaison));
 
-					} while (fonctionnement.getSaisieUtilisateur().length() != RessourcesMaster.nbDeChiffreCombinaison);
+					} while (joueurs.getSaisieDeLaCombinaisonMystere().length() != RessourcesMaster.nbDeChiffreCombinaison);
 
 					// boucle permettant de comparer les 2 combinaisons
 					do {
 
 						ordinateur.setPropositionOrdinateur(ordinateur.propositionDeLOrdinateurEnFonctionDesReponse(random, RessourcesMaster.nbDeChiffreCombinaison));
-						System.out.println(ordinateur.getPropositionOrdinateur());
-						combinaisonMystere.comparaisonTableauCombinaisonOrdi(fonctionnement.getSaisieUtilisateur(),ordinateur.getPropositionOrdinateur());
+						combinaisonMystere.comparaisonTableauCombinaisonOrdi(joueurs.getSaisieDeLaCombinaisonMystere(),ordinateur.getPropositionOrdinateur());
 						nbDeCoupsJoues++;
 
-					} while (!ordinateur.getPropositionOrdinateur().equals(fonctionnement.getSaisieUtilisateur())
+					} while (!ordinateur.getPropositionOrdinateur().equals(joueurs.getSaisieDeLaCombinaisonMystere())
 							&& nbDeCoupsJoues < RessourcesMaster.nbDeCoupMax);
 
 					combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsOrdi());
 
-					if (ordinateur.getPropositionOrdinateur().equals(fonctionnement.getSaisieUtilisateur()))
+					if (ordinateur.getPropositionOrdinateur().equals(joueurs.getSaisieDeLaCombinaisonMystere()))
 						resultatFinalGagnantOrdi(ordinateur.getPropositionOrdinateur(), nbDeCoupsJoues);
 					else
 						resultatFinalPerdantOrdi(ordinateur.getPropositionOrdinateur(), nbDeCoupsJoues);
@@ -202,7 +202,7 @@ public class CorpsPrincipal {
 					nbDeCoupsJoues = 0;
 
 					// initialisation de la combinaison mystère
-					combinaisonMystere.generationDuNombreMystere(random, RessourcesMaster.nbDeChiffreCombinaison);
+					combinaisonMystere.generationDuNombreMystere(random, RessourcesMaster.nbDeChiffreCombinaison, utilisateur.getChoixDuModeDeveloppeur());
 
 					// Boucle permettant de comparer les listes pour le résultat final
 					do {
@@ -210,7 +210,7 @@ public class CorpsPrincipal {
 						do {
 
 							// saisie d'une proposition par l'utilisateur
-							fonctionnement.saisieUtilisateur(
+							joueurs.setSaisieDUneProposition(fonctionnement.saisieUtilisateur(
 									"Veuillez entrer une combinaison à " + RessourcesMaster.nbDeChiffreCombinaison
 											+ " chiffres compris entre  1 et " + RessourcesMaster.nbDeCouleur,
 									"ne tapez pas de lettre, rentrez des chiffres",
@@ -219,29 +219,28 @@ public class CorpsPrincipal {
 											+ "\net la combinaison contient " + RessourcesMaster.nbDeChiffreCombinaison
 											+ " chiffres",
 									"veuillez rentrer le bon nombre de chiffre demandé, a savoir "
-											+ RessourcesMaster.nbDeChiffreCombinaison);
+											+ RessourcesMaster.nbDeChiffreCombinaison));
 
-						} while (fonctionnement.getSaisieUtilisateur()
-								.length() != RessourcesMaster.nbDeChiffreCombinaison);
-						combinaisonMystere.comparaisonTableauCombinaisonJoueur(combinaisonMystere.getCombinaison(),	fonctionnement.getSaisieUtilisateur());
+						} while (joueurs.getSaisieDUnePropostion().length() != RessourcesMaster.nbDeChiffreCombinaison);
+						combinaisonMystere.comparaisonTableauCombinaisonJoueur(combinaisonMystere.getCombinaison(),	joueurs.getSaisieDUnePropostion());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsJoueurs());
 
 						ordinateur.setPropositionOrdinateur(ordinateur.propositionDeLOrdinateurEnFonctionDesReponse(random, RessourcesMaster.nbDeChiffreCombinaison));
 
-						combinaisonMystere.comparaisonTableauCombinaisonOrdi(fonctionnement.getSaisieUtilisateur(),ordinateur.getPropositionOrdinateur());
+						combinaisonMystere.comparaisonTableauCombinaisonOrdi(combinaisonMystere.getCombinaison(),ordinateur.getPropositionOrdinateur());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsOrdi());
 
 						nbDeCoupsJoues++;
 
-					} while (!ordinateur.getPropositionOrdinateur().equals(fonctionnement.getSaisieUtilisateur())
-							&& !combinaisonMystere.getCombinaison().equals(fonctionnement.getSaisieUtilisateur())
+					} while (!combinaisonMystere.getCombinaison().equals(ordinateur.getPropositionOrdinateur())
+							&& !combinaisonMystere.getCombinaison().equals(joueurs.getSaisieDUnePropostion())
 							&& nbDeCoupsJoues < RessourcesMaster.nbDeCoupMax);
 
 					if (nbDeCoupsJoues <= RessourcesMaster.nbDeCoupMax)
-						if (ordinateur.getPropositionOrdinateur().equals(fonctionnement.getSaisieUtilisateur())
-								&& combinaisonMystere.getCombinaison().equals(fonctionnement.getSaisieUtilisateur()))
+						if (combinaisonMystere.getCombinaison().equals(ordinateur.getPropositionOrdinateur())
+								&& combinaisonMystere.getCombinaison().equals(joueurs.getSaisieDUnePropostion()))
 							resultatsEgauxEntreUtilisateurEtOrdinateur();
-						else if (combinaisonMystere.getCombinaison().equals(fonctionnement.getSaisieUtilisateur()))
+						else if (combinaisonMystere.getCombinaison().equals(joueurs.getSaisieDUnePropostion()))
 							resultatFinalGagnant(combinaisonMystere.getCombinaison(), nbDeCoupsJoues);
 						else
 							resultatFinalGagnantOrdi(ordinateur.getPropositionOrdinateur(), nbDeCoupsJoues);

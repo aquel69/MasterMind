@@ -1,7 +1,114 @@
-[ERROR] 2019-02-25 10:11:49.569 [main] Combinaison - erreur sur le nombre mystere
-java.lang.StringIndexOutOfBoundsException: String index out of range: 5
-	at java.lang.StringLatin1.charAt(StringLatin1.java:47) ~[?:?]
-	at java.lang.String.charAt(String.java:693) ~[?:?]
-	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:37) [bin/:?]
-	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:70) [bin/:?]
+[ERROR] 2019-02-26 08:21:27.096 [main] Combinaison - erreur sur le nombre mystere
+java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:614) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at fr.alex.main.Utilisateur.getChoixDuModeDeveloppeur(Utilisateur.java:11) ~[bin/:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:43) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:71) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:21:37.112 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:22:11.909 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:22:30.849 [main] Combinaison - erreur sur le nombre mystere
+java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:614) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at fr.alex.main.Utilisateur.getChoixDuModeDeveloppeur(Utilisateur.java:11) ~[bin/:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:44) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:71) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:22:57.160 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:24:53.788 [main] Combinaison - erreur sur le nombre mystere
+java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:614) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at fr.alex.main.Utilisateur.getChoixDuModeDeveloppeur(Utilisateur.java:12) ~[bin/:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:44) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:71) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:25:08.105 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:26:05.503 [main] Combinaison - erreur sur le nombre mystere
+java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:614) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at fr.alex.main.Utilisateur.getChoixDuModeDeveloppeur(Utilisateur.java:12) ~[bin/:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:44) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:71) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:26:07.855 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:27:43.890 [main] Combinaison - erreur sur le nombre mystere
+java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:614) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at fr.alex.main.Utilisateur.getChoixDuModeDeveloppeur(Utilisateur.java:12) ~[bin/:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:44) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:71) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 08:27:46.685 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 09:09:34.645 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 09:10:08.991 [main] Combinaison - erreur sur le nombre mystere
+java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:614) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at fr.alex.main.Utilisateur.getChoixDuModeDeveloppeur(Utilisateur.java:12) ~[bin/:?]
+	at fr.alex.main.Combinaison.generationDuNombreMystere(Combinaison.java:43) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:71) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 09:10:18.346 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 09:13:19.680 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 09:24:34.559 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:213) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]
+[ERROR] 2019-02-26 09:27:34.069 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:118) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:213) [bin/:?]
 	at fr.alex.main.MainMaster.main(MainMaster.java:9) [bin/:?]

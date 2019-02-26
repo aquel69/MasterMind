@@ -1,22 +1,28 @@
 package fr.alex.main;
 
-public class  Joueurs {
-	protected String saisieDuNbMystere;
+public class  Joueurs extends Utilisateur{
+	private String saisieDUneProposition;
+	private String saisieDeLaCombinaisonMystere;
 		
 	public Joueurs() {
 		
 	}
+		
+	public String getSaisieDUnePropostion() {
+		return saisieDUneProposition;
+	}
+
+	public void setSaisieDUneProposition(String saisieDUneProposition) {
+		this.saisieDUneProposition = saisieDUneProposition;
+	}
 	
-	public Joueurs(String saisieDuNbMystere) {
-		this.saisieDuNbMystere = saisieDuNbMystere;
+	public String getSaisieDeLaCombinaisonMystere() {
+		return saisieDeLaCombinaisonMystere;
 	}
 
-	public String getSaisieDuNbMystere() {
-		return saisieDuNbMystere;
+	public void setSaisieDeLaCombinaisonMystere(String saisieDeLaCombinaisonMystere) {
+		this.saisieDeLaCombinaisonMystere = saisieDeLaCombinaisonMystere;
 	}
 
-	public void setSaisieDuNbMystere(String saisieDuNbMystere) {
-		this.saisieDuNbMystere = saisieDuNbMystere;
-	}
 	
 }
