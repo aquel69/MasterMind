@@ -6,14 +6,11 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 
 
 public class Combinaison {
 	
-	private static Logger loggerComb= LogManager.getLogger(Combinaison.class.getName());
+	//private static Logger loggerComb= LogManager.getLogger(Combinaison.class.getName());
 		
 	private String combinaison = "";
 	private String recapitulatifDeLaPropositionJoueur = "";
@@ -86,7 +83,6 @@ public class Combinaison {
 		char [] tableauReponse = pReponse.toCharArray();
 		char [] tableauCombinaison = pCombinaison.toCharArray();
 		
-		try {
 		//initialisation du tableau complet en false
 		for (int i = 0; i < chiffreCombinaisonEnPlace.length; i++) {
 			chiffreCombinaisonEnPlace[i] = false;
@@ -111,10 +107,7 @@ public class Combinaison {
 			}
 			recapitulatifDeLaPropositionOrdi = pReponse + "  BP : " + Integer.toString(bienPlace) + " MP : " + Integer.toString(malPlace);
 		}
-		
 		recapitulatifDesPrecedentesPropositionsOrdi.add(recapitulatifDeLaPropositionOrdi);
-		}catch(Exception e)
-		{loggerComb.error("erreur sur la comparaison tableau ordi", e);}
 	}
 	
 	/**public void affichageDuResultatEtDesIndices(String pReponse, int pBienPlace, int pMalPlace, int pInconnuDansLaCombinaison ) {

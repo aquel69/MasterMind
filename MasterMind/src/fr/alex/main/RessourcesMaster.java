@@ -12,6 +12,8 @@ public class RessourcesMaster {
 	public static int nbDeChiffreCombinaison = 0;
 	public static int nbDeCoupMax = 0;
 	public static int nbDeCouleur = 0;
+	public static int nbDeChiffreCombinaisonRecherche = 0;
+	public static int nbDeCoupMaxRecherche = 0;
 	
 	private String nombreDeChiffreCombinaisonString;
 	private String nombreDeCoupMaxstring;
@@ -28,21 +30,49 @@ public class RessourcesMaster {
 	public RessourcesMaster(){
 		ResourceBundle bundle = ResourceBundle.getBundle("config");
 		try {
-		nombreDeChiffreCombinaisonString = bundle.getString("masterMind.nbDeChiffreCombinaison");
-		} catch(Exception e)
-		{loggerRessources.error("le nombre de chiffre combinaison est manquant, la valeur est de 4", e);
-		nombreDeChiffreCombinaisonString = "4";
-		}
+			nombreDeChiffreCombinaisonString = bundle.getString("masterMind.nbDeChiffreCombinaison");
+			} catch(Exception e){
+				loggerRessources.error("le nombre de chiffre combinaison est manquant, la valeur est de 4", e);
+				nombreDeChiffreCombinaisonString = "4";
+			}
 		nombreDeChiffreCombinaisonString = verificationValeurProperties(nombreDeChiffreCombinaisonString, "le parametre nb de Chiffre étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
 		nbDeChiffreCombinaison = Integer.parseInt(nombreDeChiffreCombinaisonString);
 		
-		nombreDeCoupMaxstring = bundle.getString("masterMind.nbDeCoupMax");
+		try {
+			nombreDeCoupMaxstring = bundle.getString("masterMind.nbDeCoupMax");
+			} catch(Exception e){
+				loggerRessources.error("le nombre de coup maximum est manquant, la valeur est de 12", e);
+				nombreDeCoupMaxstring = "12";
+			}
 		nombreDeCoupMaxstring = verificationValeurProperties(nombreDeCoupMaxstring, "le parametre nb de coups étant une lettre je l'ai remplacé par 12", "le parametre nb de Chiffre étant vide je l'ai remplacé par 12", "12");
 		nbDeCoupMax = Integer.parseInt(nombreDeCoupMaxstring);
 		
-		nombreDeCouleurstring = bundle.getString("masterMind.nbDeCouleur");
+		try {
+			nombreDeCouleurstring = bundle.getString("masterMind.nbDeCouleur");
+			} catch(Exception e){
+				loggerRessources.error("le nombre de couleur est manquant, la valeur est de 6", e);
+				nombreDeCouleurstring = "6";
+			}
 		nombreDeCouleurstring = verificationValeurProperties(nombreDeCouleurstring, "le parametre nb de couleur étant une lettre je l'ai remplacé par 6", "le parametre nb de Chiffre étant vide je l'ai remplacé par 6", "6");
 		nbDeCouleur = Integer.parseInt(nombreDeCouleurstring);
+		
+		try {
+			nombreDeChiffreCombinaisonString = bundle.getString("recherche.nbDeChiffreCombinaison");
+			} catch(Exception e){
+				loggerRessources.error("le nombre de chiffre combinaison est manquant, la valeur est de 4", e);
+				nombreDeChiffreCombinaisonString = "4";
+			}
+		nombreDeChiffreCombinaisonString = verificationValeurProperties(nombreDeChiffreCombinaisonString, "le parametre nb de Chiffre étant une lettre je l'ai remplacé par 4", "le parametre nb de Chiffre étant vide je l'ai remplacé par 4", "4");
+		nbDeChiffreCombinaisonRecherche = Integer.parseInt(nombreDeChiffreCombinaisonString);
+		
+		try {
+			nombreDeCoupMaxstring = bundle.getString("recherche.nbDeCoupMax");
+			} catch(Exception e){
+				loggerRessources.error("le nombre de coup maximum est manquant, la valeur est de 12", e);
+				nombreDeCoupMaxstring = "8";
+			}
+		nombreDeCoupMaxstring = verificationValeurProperties(nombreDeCoupMaxstring, "le parametre nb de coups étant une lettre je l'ai remplacé par 8", "le parametre nb de Chiffre étant vide je l'ai remplacé par 8", "8");
+		nbDeCoupMaxRecherche = Integer.parseInt(nombreDeCoupMaxstring);
 	}
 	
 		
