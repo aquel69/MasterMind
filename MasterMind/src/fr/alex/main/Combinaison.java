@@ -17,10 +17,15 @@ public class Combinaison {
 	private String recapitulatifDeLaPropositionOrdi = "";
 	private int bienPlace = 0;
 	private int malPlace = 0;
+	private int scoreMax = 0;
 		
 	private boolean [] chiffreCombinaisonEnPlace = new boolean[RessourcesMaster.nbDeChiffreCombinaison];
+	private boolean [] chiffreCombinaisonMystereTrouve = new boolean[RessourcesMaster.nbDeChiffreCombinaison];
 	private List <String> recapitulatifDesPrecedentesPropositionsJoueurs = new ArrayList<String>();
 	private List <String> recapitulatifDesPrecedentesPropositionsOrdi = new ArrayList<String>();
+	private List<Character> sauvegardeDesPionsDejaJoues = new ArrayList<Character>();
+	private List <Character> sauvegardeDesPionsPasDansLaCombinaison = new ArrayList<Character>();
+	
 	
 	public Combinaison() {
 		
@@ -98,7 +103,7 @@ public class Combinaison {
 		
 		// comparaison des deux chaines convertis en tableau de char pour verifier les pions mal Placés
 		for (int i = 0; i < pReponse.length(); i++) {
-			for (int j = 0; j < pReponse.length(); j++) {
+			for (int j = 0; j < pCombinaison.length(); j++) {
 				if(tableauReponse[i] == tableauCombinaison[j] && chiffreCombinaisonEnPlace[j] == false && tableauReponse[i] != tableauCombinaison[i]) {
 					malPlace++;
 					chiffreCombinaisonEnPlace[j] = true;
@@ -108,6 +113,69 @@ public class Combinaison {
 			recapitulatifDeLaPropositionOrdi = pReponse + "  BP : " + Integer.toString(bienPlace) + " MP : " + Integer.toString(malPlace);
 		}
 		recapitulatifDesPrecedentesPropositionsOrdi.add(recapitulatifDeLaPropositionOrdi);
+	}
+	
+	public void comparaisonTableauCombinaisonOrdiMethodeKnuth(String pCombinaison, String pReponse) {
+		this.bienPlace = 0;
+		this.malPlace = 0;
+		setScoreMax(0);
+		
+		char [] tableauReponse = pReponse.toCharArray();
+		char [] tableauCombinaison = pCombinaison.toCharArray();
+		
+		//initialisation du tableau complet en false
+		for (int i = 0; i < chiffreCombinaisonEnPlace.length; i++) {
+			chiffreCombinaisonEnPlace[i] = false;
+			
+		}
+		
+		// verification des pions bien placés
+		for (int i = 0; i < pReponse.length(); i++) {
+			if (pReponse.charAt(i) == pCombinaison.charAt(i)) { 
+				//setScoreMax(getScoreMax() + 10);
+				chiffreCombinaisonEnPlace[i] = true;
+				
+				this.bienPlace++;
+			}
+			if(chiffreCombinaisonMystereTrouve[i]==false ){ //&& comparaisonDesPionsDejaJouesAvecListe(tableauReponse, sauvegardeDesPionsDejaJoues)) {
+				chiffreCombinaisonMystereTrouve[i] = true;
+				sauvegardeDesPionsDejaJoues.add(pCombinaison.charAt(i));
+			}
+		}
+		
+		// comparaison des deux chaines convertis en tableau de char pour verifier les pions mal Placés
+		for (int i = 0; i < pReponse.length(); i++) {
+			for (int j = 0; j < pCombinaison.length(); j++) {
+				if(tableauReponse[i] == tableauCombinaison[j] && chiffreCombinaisonEnPlace[j] == false && tableauReponse[i] != tableauCombinaison[i]) {
+					//setScoreMax(getScoreMax() + 1);
+					chiffreCombinaisonEnPlace[j] = true;
+					malPlace++;
+					if(chiffreCombinaisonMystereTrouve[j]==false) {
+						chiffreCombinaisonMystereTrouve[j] = true;
+						sauvegardeDesPionsDejaJoues.add(pCombinaison.charAt(i));
+					}		
+					break;
+				}
+				
+			}
+			recapitulatifDeLaPropositionOrdi = pReponse + "  BP : " + Integer.toString(bienPlace) + " MP : " + Integer.toString(malPlace);
+		}
+		recapitulatifDesPrecedentesPropositionsOrdi.add(recapitulatifDeLaPropositionOrdi);
+	}
+	
+	
+	public boolean comparaisonDesPionsDejaJouesAvecListe(char[] pTableauReponse, ArrayList<Character> pListeDesPionsDejaJoues) {
+		boolean pionIdentique = false;
+		
+		for(int i=0; i<pTableauReponse.length;i++) {
+			for(int j=0; i<pListeDesPionsDejaJoues.size();j++) {
+				if(pTableauReponse[i]==pListeDesPionsDejaJoues.get(j)) {
+					pionIdentique = true;
+				}
+			}
+		}
+		
+		return pionIdentique;
 	}
 	
 	/**public void affichageDuResultatEtDesIndices(String pReponse, int pBienPlace, int pMalPlace, int pInconnuDansLaCombinaison ) {
@@ -163,7 +231,29 @@ public class Combinaison {
 
 	public void setRecapitulatifDeLaPropositionOrdi(String recapitulatifDeLaPropositionOrdi) {
 		this.recapitulatifDeLaPropositionOrdi = recapitulatifDeLaPropositionOrdi;
+	}
+
+	public int getScoreMax() {
+		return scoreMax;
+	}
+
+	public void setScoreMax(int scoreMax) {
+		this.scoreMax = scoreMax;
 	}	
 
+	public List<Character> getSauvegardeDesPionsDejaJoues() {
+		return sauvegardeDesPionsDejaJoues;
+	}
 
+	public void setSauvegardeDesPionsDejaJoues(List<Character> sauvegardeDesPionsDejaJoues) {
+		this.sauvegardeDesPionsDejaJoues = sauvegardeDesPionsDejaJoues;
+	}
+	
+	public List<Character> getSauvegardeDesPionsPasDansLaCombinaison() {
+		return sauvegardeDesPionsPasDansLaCombinaison;
+	}
+
+	public void setSauvegardeDesPionsPasDansLaCombinaison(List<Character> sauvegardeDesPionsPasDansLaCombinaison) {
+		this.sauvegardeDesPionsPasDansLaCombinaison = sauvegardeDesPionsPasDansLaCombinaison;
+	}
 }

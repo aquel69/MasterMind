@@ -65,6 +65,7 @@ public class CorpsPrincipal {
 					// joué pour une nouvelle partie
 
 					combinaisonMystere.getRecapitulatifPrecedentesPropositionsJoueurs().clear();
+					combinaisonMystere.setCombinaison("");
 					nbDeCoupsJoues = 0;
 
 					// initialisation de la combinaison mystère
@@ -156,13 +157,16 @@ public class CorpsPrincipal {
 					// boucle permettant de comparer les 2 combinaisons
 					do {
 
-						ordinateur.setPropositionOrdinateur(ordinateur.propositionDeLOrdinateurEnFonctionDesReponse(random, RessourcesMaster.nbDeChiffreCombinaison));
-						combinaisonMystere.comparaisonTableauCombinaisonOrdi(joueurs.getSaisieDeLaCombinaisonMystere(),ordinateur.getPropositionOrdinateur());
+						ordinateur.setPropositionOrdinateur(ordinateur.propositionDeLOrdinateurEnFonctionDesReponse(random, RessourcesMaster.nbDeChiffreCombinaison, nbDeCoupsJoues));
+						System.out.println("proposition " + ordinateur.getPropositionOrdinateur() );
+						combinaisonMystere.comparaisonTableauCombinaisonOrdiMethodeKnuth(joueurs.getSaisieDeLaCombinaisonMystere(),ordinateur.getPropositionOrdinateur());
 						nbDeCoupsJoues++;
 
 					} while (!ordinateur.getPropositionOrdinateur().equals(joueurs.getSaisieDeLaCombinaisonMystere())
 							&& nbDeCoupsJoues < RessourcesMaster.nbDeCoupMax);
-
+					for(int i = 0; i<combinaisonMystere.getSauvegardeDesPionsDejaJoues().size();i++)
+					System.out.println("liste " + combinaisonMystere.getSauvegardeDesPionsDejaJoues());
+					
 					combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsOrdi());
 
 					if (ordinateur.getPropositionOrdinateur().equals(joueurs.getSaisieDeLaCombinaisonMystere()))
@@ -199,6 +203,7 @@ public class CorpsPrincipal {
 					// reinitialisation des deux listes des precedentes propositions et du nb de coup joué pour une nouvelle partie
 					combinaisonMystere.getRecapitulatifPrecedentesPropositionsJoueurs().clear();
 					combinaisonMystere.getRecapitulatifPrecedentesPropositionsOrdi().clear();
+					combinaisonMystere.setCombinaison("");
 					nbDeCoupsJoues = 0;
 
 					// initialisation de la combinaison mystère
@@ -225,7 +230,7 @@ public class CorpsPrincipal {
 						combinaisonMystere.comparaisonTableauCombinaisonJoueur(combinaisonMystere.getCombinaison(),	joueurs.getSaisieDUnePropostion());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsJoueurs());
 
-						ordinateur.setPropositionOrdinateur(ordinateur.propositionDeLOrdinateurEnFonctionDesReponse(random, RessourcesMaster.nbDeChiffreCombinaison));
+						ordinateur.setPropositionOrdinateur(ordinateur.propositionDeLOrdinateurEnFonctionDesReponse(random, RessourcesMaster.nbDeChiffreCombinaison, nbDeCoupsJoues));
 
 						combinaisonMystere.comparaisonTableauCombinaisonOrdi(combinaisonMystere.getCombinaison(),ordinateur.getPropositionOrdinateur());
 						combinaisonMystere.affichageDuResultatEtDesIndices(combinaisonMystere.getRecapitulatifPrecedentesPropositionsOrdi());
@@ -285,7 +290,7 @@ public class CorpsPrincipal {
 	 */
 	public static void presentation() {
 		JOptionPane.showMessageDialog(null,
-		"---------------------------------------------------\n" + "---------- Jeu Master Mind ----------\n"
+		"---------------------------------------------------\n" + "------------- Jeu Master Mind -------------\n"
 		+ "---------------------------------------------------\n" + "1 - Mode Challenger\n"
 		+ "2 - Mode Defenseur\n" + "3 - Mode Duel\n" + "4 - Règles et aides\n" + "5 - Quitter le jeu\n"
 		+ "---------------------------------------------------");

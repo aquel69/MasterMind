@@ -1,16 +1,30 @@
-[ERROR] 2019-03-02 19:40:03.197 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+[ERROR] 2019-03-08 14:49:15.647 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
 java.lang.NullPointerException: null
 	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:95) ~[bin/:?]
 	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
 	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:81) [bin/:?]
-	at fr.alex.main.MainMaster.main(MainMaster.java:18) [bin/:?]
-[ERROR] 2019-03-02 19:44:43.364 [main] Combinaison - erreur dans la saisie utilisateur 3 parametres
+	at fr.alex.main.MainMaster.main(MainMaster.java:19) [bin/:?]
+[ERROR] 2019-03-08 14:53:24.325 [main] Combinaison - erreur dans la saisie utilisateur 5 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:95) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:67) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:82) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:19) [bin/:?]
+[ERROR] 2019-03-08 18:11:05.931 [main] Combinaison - erreur dans la saisie utilisateur 3 parametres
 java.lang.NullPointerException: null
 	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:95) ~[bin/:?]
 	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:34) [bin/:?]
-	at fr.alex.main.MainMaster.main(MainMaster.java:14) [bin/:?]
-[ERROR] 2019-03-02 19:47:44.617 [main] Combinaison - erreur dans la saisie utilisateur 3 parametres
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:49) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:19) [bin/:?]
+[ERROR] 2019-03-08 18:11:40.414 [main] Combinaison - erreur dans la saisie utilisateur 3 parametres
 java.lang.NullPointerException: null
 	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:95) ~[bin/:?]
 	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:34) [bin/:?]
-	at fr.alex.main.MainMaster.main(MainMaster.java:14) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:49) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:19) [bin/:?]
+[ERROR] 2019-03-08 19:27:57.190 [main] Combinaison - erreur dans la saisie utilisateur 3 parametres
+java.lang.NullPointerException: null
+	at fr.alex.main.VerificationEtFonctionnement.verifieSiLettre(VerificationEtFonctionnement.java:95) ~[bin/:?]
+	at fr.alex.main.VerificationEtFonctionnement.saisieUtilisateur(VerificationEtFonctionnement.java:34) [bin/:?]
+	at fr.alex.main.CorpsPrincipal.init(CorpsPrincipal.java:49) [bin/:?]
+	at fr.alex.main.MainMaster.main(MainMaster.java:19) [bin/:?]
